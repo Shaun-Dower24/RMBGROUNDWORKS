@@ -32,4 +32,12 @@ GSAP is pinned to 3.15.0. Production client files total **131,207 bytes raw / 51
 
 The npm audit remains at the existing 13 high development-tool findings documented in dependency-audit.md. No backend, SMTP, tracking, domain or indexing settings were changed for animation. The Netlify review site retains noindex and its honest missing-mail fallback.
 
-Production release, live samples and review artifacts are recorded below after publication.
+## Published release
+
+Netlify deployment **6ad7c5969664749aed8b0c6d**, code commit **07385e4**, is confirmed ready at [the live review site](https://rmb-groundworks.netlify.app). [Immutable release](https://6ad7c5969664749aed8b0c6d--rmb-groundworks.netlify.app).
+
+The full 44-case/observation protocol suite passed against production in Chromium with no runtime errors. Blocking the actual versioned animation asset leaves static content usable. Six live About geometries and the anchor action pass, including short landscape. A live WebKit touch/mobile-emulation check confirmed menu navigation, usable Back restoration, y0 photo, original focal point and 72px clearance at 390×844.
+
+A single illustrative Chromium run at 4× CPU slowdown, 120ms network latency and 200kB/s download sampled the previous immutable About release and the new first/seen sessions. Observed CLS was approximately 0.0004 before and 0.0051 after; headings remained readable, the cover cleared and no horizontal overflow appeared. The new runs recorded three tasks over 50ms versus zero in that previous sample. The optional 48kB-gzip GSAP chunk and Netlify's injected badge script contribute extra work; conditional loading limits that cost on essential/reduced-motion routes. This is not a controlled benchmark or field-performance claim: CDN/cache/injection conditions differ, and an intro can also change the element counted as LCP. No speed-improvement claim is made.
+
+Review artifacts saved in the task outputs: `rmb-motion-preview.webm` (13.4 seconds), `rmb-session-intro-live.png`, `rmb-motion-about-desktop.png` and `rmb-motion-about-mobile.png`. Desktop/mobile captures and a frame from the recording were visually reviewed. The existing pull request was updated; it remains open and unmerged.

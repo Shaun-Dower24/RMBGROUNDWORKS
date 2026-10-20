@@ -3,8 +3,8 @@
 Published 20 October 2026 at the user's request. The user selected a new `rmb-groundworks` project in the **systemsAI** team.
 
 - Live review site: https://rmb-groundworks.netlify.app
-- Immutable release: https://6ad7bd2c1282e3e500b76e55--rmb-groundworks.netlify.app
-- Deployment: https://app.netlify.com/projects/rmb-groundworks/deploys/6ad7bd2c1282e3e500b76e55
+- Immutable release: https://6ad7c5969664749aed8b0c6d--rmb-groundworks.netlify.app
+- Deployment: https://app.netlify.com/projects/rmb-groundworks/deploys/6ad7c5969664749aed8b0c6d
 - Site ID: `4e454043-6369-4cf7-a106-5f6c88c4f4b1`
 - Source branch: `feat/website-rebuild`; pull request: https://github.com/Shaun-Dower24/RMBGROUNDWORKS/pull/1
 
@@ -39,6 +39,8 @@ Netlify reports the current release **ready**. The initial publication's live HT
 All seven mail configuration variables were checked absent in Netlify's production Functions scope without displaying values. No external email was sent. The live browser passed 24 interaction checks covering menu focus/trapping/Escape, hero controls, work filters, gallery controls/focus, enquiry validation, the actual missing-mail fallback, a browser-mocked accepted response, reduced motion and FAQs. A mocked accepted response is not a real delivery test.
 
 The subsequent hero refresh is published from code commit `8277279`. Live checks covered six page patterns at desktop/mobile widths, the About/service/work navigation actions and work filter. The final About hero passed six viewport checks: full-height photo at y0, no horizontal overflow, heading below the fixed header, and 72–76px of clearance beneath the scroll link so Netlify's badge cannot obscure it. The short landscape layout expands to fit its content. See [hero-design.md](hero-design.md) for the 21st.dev references and full local verification.
+
+The animation release is published from code commit `07385e4`, deployment `6ad7c5969664749aed8b0c6d`, confirmed **ready**. Live Chromium passed all 44 session/failure protocol observations/checks, including failed animation assets with Netlify version query strings. Live WebKit touch emulation preserved the 844px-tall About hero at 390px width, y0 photograph, 18%-top focal point and 72px badge clearance; menu navigation and Back returned usable content. All six live About viewport checks still pass. A 13.4-second motion recording and settled desktop/mobile captures were saved for review. See [motion-verification.md](motion-verification.md).
 
 ## Remaining launch setup
 

@@ -177,8 +177,8 @@ Implemented touch points:
 - [x] Repeat hero, menu, filter, lightbox and enquiry feedback checks. Verify that animation does not duplicate submissions or discard typed details; use mocked mail for testing unless a controlled delivery is separately authorized.
 - [x] Compare production bundle size, rendering, layout stability and interactivity against the pre-animation baseline; investigate any material regression.
 - [x] Run Astro diagnostics, production build and relevant interaction/accessibility checks; record limitations instead of treating automated checks as complete accessibility proof.
-- [ ] Capture a short motion recording and settled desktop/mobile screenshots for review, then update the existing pull request with the motion specification and evidence.
-- [ ] Publish through the established Netlify workflow only as part of the later authorized implementation/release task. Keep the review site's indexing and mail-configuration status documented.
+- [x] Capture a short motion recording and settled desktop/mobile screenshots for review, then update the existing pull request with the motion specification and evidence.
+- [x] Publish through the established Netlify workflow only as part of the later authorized implementation/release task. Keep the review site's indexing and mail-configuration status documented.
 
 ## Implementation status
 

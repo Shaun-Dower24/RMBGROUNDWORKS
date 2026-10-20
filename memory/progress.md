@@ -11,3 +11,5 @@
 - Published the user-requested Netlify review site; SMTP, real delivery, company-domain migration and owner content/privacy checks remain documented release steps.
 - Netlify adapter build, diagnostics and 13 unit tests passed. Live HTTP checks passed for 17 content routes, sampled assets, robots/sitemap, custom404 and API405/400/403/503. No external email was sent.
 - Replaced the About title/image strip with a full-viewport, top-anchored photographic hero. Adapted public 21st editorial/split references for services, work and contact. Passed85 width/route checks,14 axe samples (0 violations; image contrast manually reviewed), short-screen and mobile-menu checks. Details: docs/hero-design.md.
+
+- Animation release 07385e4 published to Netlify deployment 6ad7c5969664749aed8b0c6d (ready). Scroll masks/wipes/rules, session intro and native page fades verified locally and live; no backend changes or external mail. Evidence and remaining physical-device limits: docs/motion-verification.md.
