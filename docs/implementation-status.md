@@ -24,7 +24,7 @@ Completed: 20 October 2026. Built from the research checklist after the user aut
 | Runtime JavaScript errors         | 0 during final screenshot/fallback sampling                                                                                                                                                                                |
 | Static output                     | 18 HTML documents, 847 local references, 6 CSS asset checks; 0 broken references/fragments, 0 duplicate titles/canonicals and 0 external resource loads                                                                    |
 | Built-server probes               | 17 content routes 200; robots/sitemap and sampled assets 200; unknown route 404; API method/origin/configuration states behave as expected                                                                                 |
-| Client JavaScript                 | Original baseline 6,271/2,221 raw/gzip; current total 131,298/51,288 including optional GSAP chunk. See motion-verification.md                                                                                                                                                                      |
+| External client JavaScript        | Current chunks 131,508/51,355 raw/gzip including optional GSAP; homepage inline scripts add 4,321 raw bytes. See netlify-deployment.md                                                                                                                                                            |
 | Dependency audit                  | Original Node build: 0 findings. Netlify adapter introduces 13 high development-tool dependency findings; identified affected paths are absent from the deployed Function. See docs/dependency-audit.md                    |
 
 Desktop/mobile homepage, full homepage, work index and contact screenshots were visually reviewed in the local workspace. Browser checks used Chromium on Windows. These results do not establish complete WCAG conformance, cross-browser coverage or field Core Web Vitals. No traffic/ranking/lead-uplift claims are made.
@@ -46,3 +46,5 @@ Size-aware reveal starts are published in 0ab5ba0 so content is substantially in
 ## Homepage refresh
 
 The approved six-section 21st.dev shortlist is implemented with original RMB assets and native Astro components. Split company introduction, manual photographic work gallery, native service media accordion, neutral process timeline, prominent enquiry/phone CTA and shared footer are included. No new dependencies. See [homepage-design.md](homepage-design.md) for source references, 47 homepage interaction/layout checks, 85 shared layout checks and frame-level animation evidence.
+
+Published code `d5a4ba5`, ready deployment `6ad7d46093e09150c3b88b00`. All 47 homepage checks passed live; 12 live scroll scenarios sampled 3,189 frames without flashing or early starts. The retained intro/navigation/failure suite passed 44 observations/checks.

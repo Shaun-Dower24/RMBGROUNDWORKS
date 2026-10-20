@@ -19,3 +19,5 @@
 - Later animation starts requested: 0ab5ba0 published in ready deployment 6ad7ccacf15425f5b390fe7f. Trigger inset uses half element height bounded to 30–45% of viewport, with page-range clamping. Local 12 scenarios/141 starts: no early starts or flashing; live 28 starts confirm later timing.
 
 - Approved homepage shortlist implemented: split intro, manual gallery, five-service native media accordion, neutral process timeline, prominent CTA and shared footer. Local 47 homepage checks, 85 route/width checks, 17 axe samples (zero violations) and 12 frame-level scenarios passed; no animation regressions across 3,187 sampled frames. Details: docs/homepage-design.md.
+
+- Homepage refresh d5a4ba5 published in ready Netlify deployment 6ad7d46093e09150c3b88b00. Live 47 homepage checks, 12 scroll scenarios/3,189 frames/115 starts and 44 session/failure observations passed. Saved decoded desktop/mobile screenshots and motion video. PR remains open; Git CD remains disconnected.

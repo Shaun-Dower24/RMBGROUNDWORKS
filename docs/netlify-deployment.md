@@ -3,8 +3,8 @@
 Published 20 October 2026 at the user's request. The user selected a new `rmb-groundworks` project in the **systemsAI** team.
 
 - Live review site: https://rmb-groundworks.netlify.app
-- Immutable release: https://6ad7ccacf15425f5b390fe7f--rmb-groundworks.netlify.app
-- Deployment: https://app.netlify.com/projects/rmb-groundworks/deploys/6ad7ccacf15425f5b390fe7f
+- Immutable release: https://6ad7d46093e09150c3b88b00--rmb-groundworks.netlify.app
+- Deployment: https://app.netlify.com/projects/rmb-groundworks/deploys/6ad7d46093e09150c3b88b00
 - Site ID: `4e454043-6369-4cf7-a106-5f6c88c4f4b1`
 - Source branch: `feat/website-rebuild`; pull request: https://github.com/Shaun-Dower24/RMBGROUNDWORKS/pull/1
 
@@ -55,3 +55,11 @@ Code commit `8f8aeb7`, deployment `6ad7c9a8d47111418290fffa`, supersedes the ini
 ## Later playback triggers
 
 Code commit `0ab5ba0`, deployment `6ad7ccacf15425f5b390fe7f`, is confirmed ready. Size-aware starts replace the 85% viewport trigger; the desktop About photo now begins with 335/650px visible, and the mobile photo is fully visible. The no-flashing fix is retained. Local first-play/frame regression covers 12 scenarios and 141 observed starts; 28 live About starts were sampled at desktop/mobile widths.
+
+## Homepage refresh
+
+Code commit `d5a4ba5`, deployment `6ad7d46093e09150c3b88b00`, is confirmed **ready**. Netlify CLI completed the production build and published the approved six-section 21st-inspired homepage refresh. The company's domain/DNS and manual deployment setup are unchanged.
+
+All 47 homepage responsive/interaction/accessibility/fallback checks passed on the published release. Live continuous-scroll regression covered 12 desktop/mobile scenarios, 3,189 frames and 115 observed starts with zero flashing, early starts or runtime errors, including service-panel reflow and horizontal collection visibility. All 44 retained session/failure observations passed; Chromium observed the native document transition. No external email was sent.
+
+Decoded original images were checked present. Live desktop/mobile screenshots and a motion recording were saved in the task outputs. External JavaScript chunks total 131,508 raw / 51,355 gzip bytes, including the conditional GSAP chunk. Homepage inline executable scripts add 4,321 raw bytes, including the 1,949-byte local gallery enhancement. See [homepage-design.md](homepage-design.md) for references and local checks.
