@@ -43,4 +43,3 @@ This implementation is a reviewable website, not a production launch. Before pub
 5. Repeat responsive, keyboard, reduced-motion, enquiry delivery and domain smoke checks. The included privacy text requires owner review against the actual host/mail arrangements.
 
 No analytics or third-party feed is installed. Mail acceptance is distinct from delivery and a submitted enquiry is distinct from a qualified lead. In-memory spam limits require an upstream/shared solution for multiple production instances; see the setup guide. The Node origin must sit behind a trusted proxy that replaces forwarded headers. Production/local host patterns are explicit; set PREVIEW_HOST to an exact HTTPS preview hostname before building for another host.
-

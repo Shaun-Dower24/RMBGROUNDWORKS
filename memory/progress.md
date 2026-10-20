@@ -9,4 +9,3 @@
 - Fixed CTA reflow, label contrast, menu focus/trap, form error semantics, metadata and host-origin settings during QA.
 - Screenshots reviewed; final results and launch limits recorded in docs/implementation-status.md.
 - Production not deployed; SMTP, real delivery and owner content/privacy checks remain documented release steps.
-

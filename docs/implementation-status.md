@@ -34,4 +34,3 @@ Desktop/mobile homepage, full homepage, work index and contact screenshots were 
 The site is implemented and reviewable locally. No production domain, DNS or public website was changed. Indexing remains disabled by default. The server-side form intentionally returns 503 with direct email/phone guidance until an approved SMTP account, sender and recipient are configured. Browser success was simulated locally; real delivery has not been tested and no external email was sent.
 
 Before production release, complete the client fact/rights/privacy checks in docs/content-status.md, the SMTP/proxy checks in docs/enquiry-setup.md and domain/redirect/rollback checks in README.md. Enable SITE_INDEXABLE=true only in the production build after approval. Cross-browser testing on the intended deployment and a controlled real inbox-delivery test remain launch steps.
-

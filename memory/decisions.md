@@ -6,4 +6,3 @@
 - Work in focus visual collections instead of fictional case studies.
 - Generic SMTP transport avoids provisioning a vendor account. Recipient remains server-side; no real email during testing.
 - Indexing opt-in for production. No trackers or third-party social embeds at launch.
-

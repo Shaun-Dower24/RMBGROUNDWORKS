@@ -8,4 +8,3 @@ Blueprint: user requested implementation of the approved research checklist on 2
 4. Implement bounded server-side SMTP enquiry route with honest failure states.
 5. Check type/build, meaningful enquiry tests, routes, mobile/desktop, keyboard, reduced motion and screenshots.
 6. Commit to a feature branch and open a reviewable pull request. Production launch is out of this implementation turn's scope.
-

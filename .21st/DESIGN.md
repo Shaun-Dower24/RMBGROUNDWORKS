@@ -9,4 +9,3 @@ Preserve the original RMB identity and use Infinity-inspired photographic scale,
 - Five service groups retain nine existing services. Six truthful visual work collections. No invented testimonials, credentials, statistics or named project outcomes.
 
 Sources: src/styles/global.css, docs/asset-register.md and the research checklist. The 21st context was initialized; catalog search required an unavailable sign-in, so no catalog code or metered generation was used. Approved decisions remain in design.json.
-

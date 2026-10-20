@@ -13,4 +13,3 @@ The approved Blueprint is RMBGROUNDWORKS-WEBSITE-CHECKLIST.md, authorised for im
 Blueprint accepted by implementation request. Link: repository verified; assets/packages being verified. Architect: templates, data and server handlers separate. Stylize: responsive, reduced motion, keyboard and screenshot review. Trigger: npm run dev/build/start; production launch requires a separate explicit instruction and completed mail/domain/privacy review.
 
 Use memory/ for decisions/results. Keep temporary evidence in .tmp/. Never commit credentials, node_modules, build files, enquiry data or original oversized photo masters. Update docs/content-status.md and README with honest setup/launch requirements.
-

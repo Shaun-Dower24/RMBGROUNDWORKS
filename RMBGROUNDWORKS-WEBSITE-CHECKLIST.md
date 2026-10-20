@@ -387,4 +387,3 @@ Installed SEO/AEO and UI/UX planning skills also supported the checklist. The ZI
 Sources were reviewed on 20 October 2026. RMB homepage and projects evidence includes fresh Firecrawl captures; homepage/logo/layout observations were also sampled in a live browser. The CSS was read directly. Infinity was sampled in a narrow browser viewport, with supporting HTML and project-area research; its full responsive, performance and accessibility behaviour remains untested. Source URLs identify where evidence came from; they do not establish reuse rights or verified business performance.
 
 The checklist is ready for content/design review. Remaining boxes describe future decisions and execution, not unfinished website implementation under the current request.
-
