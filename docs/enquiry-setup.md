@@ -13,9 +13,9 @@ Copy `.env.example` to an untracked `.env` for local development, or set equival
 
 Do not prefix credentials with `PUBLIC_`, commit `.env`, or place values in client scripts. Verify the sending domain's authentication with the chosen mail administrator/provider before launch. Sender identity stays fixed; the visitor's email is used only as `Reply-To`, never as `From`. No automatic email is sent to a visitor-controlled address.
 
-The endpoint reads secrets through Astro's server-only `getSecret()` helper, keeping local Astro `.env` behaviour and the Node adapter's runtime configuration consistent. The handler library receives an explicit environment object, which makes its tests independent of real credentials.
+The endpoint reads secrets through Astro's server-only `getSecret()` helper. The handler library receives an explicit environment object, which makes its tests independent of real credentials.
 
-Use `npm run dev` for local development. Build with `npm run build` and serve the Node standalone output with `npm start`; runtime credentials must be present in the server process. A deployment wrapper/environment must load `.env` where appropriate: the built Node process does not automatically load an arbitrary local file. For local built-output testing, Node supports `node --env-file=.env ./dist/server/entry.mjs`.
+Use `npm run dev` for local development. Netlify builds with Node 24 and deploys the API as a Node Function. Set SMTP variables in Netlify's environment settings with **Functions** scope (and Builds scope if build tooling needs them), then redeploy. Variables under `build.environment` in `netlify.toml` are not Function runtime secrets. Do not put credentials in that file. Sessions are disabled because this site does not use them.
 
 ## Behaviour and limits
 
@@ -24,15 +24,15 @@ Use `npm run dev` for local development. Build with `npm run build` and serve th
 - Accepted content types: JSON and URL-encoded form data. The actual request body is limited to 16KiB, including requests without `Content-Length`. No attachments/uploads are accepted.
 - Cross-origin browser submissions are rejected. No permissive CORS response is added.
 - A honeypot field and a bounded in-process rate limiter reject obvious spam. Limit: five attempts per peer address per 15 minutes; up to 5,000 tracked buckets.
-- The handler uses the address supplied by Astro's adapter, not a header it parses itself. Astro's Node adapter can derive that address from `X-Forwarded-For` after an allowed host matches. In production, keep the Node origin reachable only through the trusted proxy and configure that proxy to replace incoming forwarded headers with verified values; otherwise a direct client may spoof its rate-limit identity. If no address is available, requests share a fallback bucket.
-- The in-memory limiter is single-process and resets on restart. A multi-instance/public deployment should use its trusted edge/WAF rate limits or a shared rate-limit store. This is not a CAPTCHA or complete abuse-prevention service.
+- The handler uses the address supplied by Astro's adapter, not a header it parses itself. Netlify supplies the trusted request context IP to its adapter. If no address is available, requests share a fallback bucket.
+- The in-memory limiter applies per Function instance and resets on a cold start. A public deployment should use trusted edge/WAF rate limits or a shared rate-limit store for a consistent global limit. This is not a CAPTCHA or complete abuse-prevention service.
 - Statuses: `200` accepted by SMTP for the configured recipient; `400` validation/honeypot; `403` origin; `405` method; `413` request too large; `415` unsupported content type; `429` rate limit; `503` missing/invalid mail configuration; `502` SMTP error or unaccepted destination.
 - SMTP acceptance is not proof of inbox delivery. No form content is logged, stored in a database, or copied to analytics by this handler. Hosting/mail-provider processing and retention still require owner review.
 - No automatic retry is performed: an ambiguous network timeout may have occurred after SMTP acceptance. Staff should use their mail service logs and contact fallback rather than an unbounded resend loop. The UI should prevent simultaneous submissions.
 
 ## Host and proxy configuration
 
-Astro 7's Node request construction uses `security.allowedDomains` to validate the incoming/forwarded host. Configure explicit production host patterns (including the correct HTTPS protocol), and explicit local hosts/ports needed for built-output testing. Do not use an unrestricted wildcard. The request URL must resolve to the same external origin the browser sends; otherwise the API intentionally returns `403` rather than disabling origin checks. Test the deployed HTTPS form through the actual reverse proxy before launch. See Astro's [allowedDomains reference](https://docs.astro.build/en/reference/configuration-reference/#securityalloweddomains).
+Astro's `security.allowedDomains` controls which forwarded hosts it trusts; it is not a general Host allow-list. Configuration retains explicit company/local host patterns and adds exact Netlify deployment hosts from its build environment. The API separately checks browser Origin against its actual request URL and rejects mismatches with `403`. Test same-origin and hostile-origin requests on the deployed HTTPS URL. See Astro's [allowedDomains reference](https://docs.astro.build/en/reference/configuration-reference/#securityalloweddomains).
 
 ## Verification
 

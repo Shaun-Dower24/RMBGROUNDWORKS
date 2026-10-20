@@ -7,12 +7,12 @@
     "dev": "cross-env ASTRO_TELEMETRY_DISABLED=1 astro dev --host 127.0.0.1",
     "check": "cross-env ASTRO_TELEMETRY_DISABLED=1 astro check",
     "build": "cross-env ASTRO_TELEMETRY_DISABLED=1 astro build",
-    "start": "node ./dist/server/entry.mjs",
+    "start": "npm run dev",
     "test": "node --import tsx --test tests/*.test.ts",
     "format": "prettier --write src tests astro.config.mjs"
   },
   "dependencies": {
-    "@astrojs/node": "^11.1.9",
+    "@astrojs/netlify": "^8.2.10",
     "astro": "^7.4.1",
     "nodemailer": "^10.1.7"
   },

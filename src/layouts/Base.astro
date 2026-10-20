@@ -18,6 +18,7 @@ const {
   image = '/media/hero-1920.webp',
 } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
+const imageOrigin = import.meta.env.URL || Astro.site;
 const indexable = import.meta.env.SITE_INDEXABLE === 'true' && !noindex;
 ---
 
@@ -37,7 +38,7 @@ const indexable = import.meta.env.SITE_INDEXABLE === 'true' && !noindex;
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
-    <meta property="og:image" content={new URL(image, Astro.site)} />
+    <meta property="og:image" content={new URL(image, imageOrigin)} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="theme-color" content="#171717" />
     <link
