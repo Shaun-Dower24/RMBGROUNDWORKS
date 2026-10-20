@@ -1,7 +1,6 @@
 const header = document.querySelector<HTMLElement>('[data-header]');
 const menu = document.querySelector<HTMLElement>('[data-menu]');
 const menuToggle = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
-const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
 const updateHeader = () => header?.classList.toggle('is-scrolled', window.scrollY > 40);
 updateHeader();
@@ -87,6 +86,7 @@ if (filterBar) {
         card.hidden = category !== 'All' && card.dataset.category !== category;
         if (!card.hidden) count++;
       });
+      document.dispatchEvent(new Event('rmb:filter'));
       const status = document.querySelector('[data-filter-count]');
       if (status)
         status.textContent = `${String(count).padStart(2, '0')} work collection${count === 1 ? '' : 's'}`;
@@ -141,40 +141,6 @@ lightbox?.addEventListener('keydown', (event) => {
     event.preventDefault();
     updateLightbox(galleryIndex + 1);
   }
-});
-
-const revealElements = [...document.querySelectorAll<HTMLElement>('[data-reveal]')];
-let revealObserver: IntersectionObserver | undefined;
-function showAll() {
-  revealObserver?.disconnect();
-  revealElements.forEach((element) => {
-    element.classList.remove('is-waiting');
-    element.classList.add('is-visible');
-  });
-}
-if (!reducedMotion.matches && 'IntersectionObserver' in window) {
-  document.documentElement.classList.add('reveal-ready');
-  revealObserver = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.remove('is-waiting');
-          entry.target.classList.add('is-visible');
-          revealObserver?.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.08 },
-  );
-  revealElements.forEach((element) => {
-    if (element.getBoundingClientRect().top > window.innerHeight * 0.95) {
-      element.classList.add('is-waiting');
-      revealObserver?.observe(element);
-    }
-  });
-}
-reducedMotion.addEventListener('change', (event) => {
-  if (event.matches) showAll();
 });
 
 const form = document.querySelector<HTMLFormElement>('[data-enquiry-form]');
@@ -265,3 +231,8 @@ if (form) {
     }
   });
 }
+
+window.addEventListener('pagehide', () => {
+  closeMenu(false);
+  lightbox?.close();
+});

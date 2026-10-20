@@ -95,10 +95,10 @@ const heroSlides = [
   </div>
   <section id="about" class="section">
     <div class="container">
-      <div class="intro-grid" data-reveal>
+      <div class="intro-grid">
         <p class="eyebrow">A foundation for your project</p>
         <div>
-          <h2>
+          <h2 data-motion="text">
             Practical expertise.
             <br />
             At every level.
@@ -118,7 +118,7 @@ const heroSlides = [
           </a>
         </div>
       </div>
-      <div class="intro-image" data-reveal>
+      <div class="intro-image" data-motion="image">
         <Media
           src="about"
           alt="RMB operative finishing a concrete retaining wall on site"
@@ -130,9 +130,9 @@ const heroSlides = [
   </section>
   <section class="section section--mist">
     <div class="container">
-      <div class="section-heading" data-reveal>
+      <div class="section-heading">
         <p class="eyebrow">A closer look</p>
-        <h2>
+        <h2 data-motion="text">
           Groundwork,
           <br />
           in focus.
@@ -152,9 +152,9 @@ const heroSlides = [
   </section>
   <section id="services" class="section dark-section">
     <div class="container">
-      <div class="section-heading" data-reveal>
+      <div class="section-heading">
         <p class="eyebrow">What we do</p>
-        <h2>
+        <h2 data-motion="text">
           The groundwork
           <br />
           behind your project.
@@ -163,6 +163,7 @@ const heroSlides = [
       <div>
         {services.map((service, i) => (
           <a class="service-row" href={`/services/${service.slug}/`} data-reveal>
+            <span class="motion-rule" data-motion="rule" aria-hidden="true"></span>
             <span class="service-row__number">0{i + 1}</span>
             <h3>{service.shortTitle}</h3>
             <p>{service.description}</p>
@@ -180,9 +181,9 @@ const heroSlides = [
   <section class="section">
     <div class="container">
       <div class="process-grid">
-        <div class="process-grid__heading" data-reveal>
+        <div class="process-grid__heading">
           <p class="eyebrow">How we work</p>
-          <h2>
+          <h2 data-motion="text">
             A clear process.
             <br />
             From first conversation.
@@ -195,6 +196,7 @@ const heroSlides = [
         <ol class="process-list">
           {stages.map((stage, i) => (
             <li data-reveal>
+              <span class="motion-rule" data-motion="rule" aria-hidden="true"></span>
               <span class="process-list__number">0{i + 1}</span>
               <div>
                 <h3>{stage.title}</h3>

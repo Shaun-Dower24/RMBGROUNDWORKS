@@ -9,7 +9,7 @@ interface Props {
 const { work, class: className = '' } = Astro.props;
 ---
 
-<article class:list={['work-card', className]} data-category={work.category}>
+<article class:list={['work-card', className]} data-category={work.category} data-reveal>
   <a href={`/projects/${work.slug}/`} class="work-card__link">
     <div class="work-card__image">
       <Media src={`gallery/${work.image}`} alt={work.imageAlt} />

@@ -1,17 +1,17 @@
 # RMB Groundworks — animation checklist
 
-Prepared: 20 October 2026. **Planning only: no website code, dependencies or deployment have been changed for this task.**
+Prepared and implemented: 20 October 2026. **Implementation authorized by the user.** See [motion verification](motion-verification.md) for the final design, tests and remaining device-test limits.
 
 Primary motion reference: [Infinity Constructions](https://infinityconstructions.com.au/). This checklist incorporates the request to use its animation techniques for RMB's scrolling, first-session introduction and page changes.
 
 ## 1. Proposed direction for the build
 
-- [ ] Build an Infinity-inspired motion system: masked text entrances, image wipes, drawing divider lines and coordinated page entrances.
-- [ ] Use RMB's original logo, photographs, Poppins/Inter and red/charcoal identity throughout.
-- [ ] Make the initial introduction run once per browser-tab session; keep ordinary page changes much shorter.
-- [ ] Preserve the About hero's full viewport height and top-anchored photograph, including the mobile focal point and clearance above Netlify's badge.
-- [ ] Keep native scrolling, accessible navigation and immediate enquiry routes. Essential information must remain usable if animation cannot run.
-- [ ] Obtain the user's instruction to implement this checklist before editing application code. This request ends with the Markdown plan.
+- [x] Build an Infinity-inspired motion system: masked text entrances, image wipes, drawing divider lines and coordinated page entrances.
+- [x] Use RMB's original logo, photographs, Poppins/Inter and red/charcoal identity throughout.
+- [x] Make the initial introduction run once per browser-tab session; keep ordinary page changes much shorter.
+- [x] Preserve the About hero's full viewport height and top-anchored photograph, including the mobile focal point and clearance above Netlify's badge.
+- [x] Keep native scrolling, accessible navigation and immediate enquiry routes. Essential information must remain usable if animation cannot run.
+- [x] User authorized implementation with “Implement plan.” after reviewing the Markdown plan.
 
 ### What was actually found on Infinity
 
@@ -30,12 +30,12 @@ The inspected bundle did not establish a once-per-session rule or a dedicated in
 
 ## 2. Technical approach
 
-- [ ] Use GSAP and ScrollTrigger for the coordinated scroll/entry sequences. Verify and pin current compatible versions during implementation; do not copy the reference site's older dependency versions.
-- [ ] Use GSAP SplitText for selected plain-text line reveals, with responsive re-splitting and accessible text handling. Do not split form labels, navigation links or paragraphs containing interactive links. The current plugin documents line masks, font/width reflow handling and accessibility limitations. [SplitText documentation](https://gsap.com/docs/v3/Plugins/SplitText/).
-- [ ] Give every element one animation owner. Migrate affected existing reveal behaviour rather than running the current IntersectionObserver/CSS animation and GSAP on the same target.
-- [ ] Keep simple button, arrow and hover feedback in CSS. Preserve the existing manual slideshow and gallery controls.
-- [ ] Keep Astro's current full-document navigation. Add browser-native cross-document transitions as an enhancement; do not introduce ClientRouter for this decorative work. Astro distinguishes native transitions from its router, whose script lifecycle would require a separate functional refactor. [Astro comparison](https://docs.astro.build/en/guides/view-transitions/#differences-between-browser-native-view-transitions-and-astros-clientrouter-).
-- [ ] Recreate RMB-specific choreography. Do not import Infinity's custom bundle, Lottie JSON, artwork, WordPress theme or business claims. The proposed RMB intro can use its existing SVG/logo; a Lottie runtime is not required for a simple mark/rule sequence.
+- [x] Use GSAP and ScrollTrigger for the coordinated scroll/entry sequences. Verify and pin current compatible versions during implementation; do not copy the reference site's older dependency versions.
+- [x] Use GSAP SplitText for selected plain-text line reveals, with responsive re-splitting and accessible text handling. Do not split form labels, navigation links or paragraphs containing interactive links. The current plugin documents line masks, font/width reflow handling and accessibility limitations. [SplitText documentation](https://gsap.com/docs/v3/Plugins/SplitText/).
+- [x] Give every element one animation owner. Migrate affected existing reveal behaviour rather than running the current IntersectionObserver/CSS animation and GSAP on the same target.
+- [x] Keep simple button, arrow and hover feedback in CSS. Preserve the existing manual slideshow and gallery controls.
+- [x] Keep Astro's current full-document navigation. Add browser-native cross-document transitions as an enhancement; do not introduce ClientRouter for this decorative work. Astro distinguishes native transitions from its router, whose script lifecycle would require a separate functional refactor. [Astro comparison](https://docs.astro.build/en/guides/view-transitions/#differences-between-browser-native-view-transitions-and-astros-clientrouter-).
+- [x] Recreate RMB-specific choreography. Do not import Infinity's custom bundle, Lottie JSON, artwork, WordPress theme or business claims. The proposed RMB intro can use its existing SVG/logo; a Lottie runtime is not required for a simple mark/rule sequence.
 
 ScrollTrigger can coordinate viewport-triggered animations without replacing native scrolling. Mobile/reduced-motion variants should be managed centrally and reverted cleanly when their conditions change. [ScrollTrigger](https://gsap.com/docs/v3/Plugins/ScrollTrigger/), [GSAP media-query lifecycle](<https://gsap.com/docs/v3/GSAP/gsap.matchMedia()/>).
 
@@ -52,13 +52,13 @@ These are proposed RMB timings, not measurements of Infinity's exact easing or d
 | First-session intro     | Approximately 1.0–1.2 seconds, with a 1.5-second maximum and immediate dismissal                               | Shorter sequence; skip entirely for reduced motion                                           |
 | Between-page transition | Approximately 180–240ms crossfade; no forced navigation delay                                                  | Same short fade where supported; ordinary navigation for reduced motion/unsupported browsers |
 
-- [ ] Use one shared easing/timing vocabulary; favor smooth ease-out entrances and avoid bounce/elastic movement.
-- [ ] Trigger below-fold groups near the lower viewport edge, normally when their top reaches about 85% of the viewport. Use small groups so long sections cannot become impossible to trigger.
-- [ ] Play reveals once per document visit; keep completed content visible when scrolling back up.
-- [ ] Keep already-visible content settled if motion initializes late. Never hide a readable section merely to replay its entrance.
-- [ ] Limit simultaneous motion to one main sequence and one supporting accent. Cap a card-row stagger at 160ms.
-- [ ] Do not pin sections, force horizontal scrolling, replace the scroll engine or add continuous parallax in this pass.
-- [ ] Keep original image dimensions and final crop positions. Do not apply wipe/zoom movement to the About hero photograph.
+- [x] Use one shared easing/timing vocabulary; favor smooth ease-out entrances and avoid bounce/elastic movement.
+- [x] Trigger below-fold groups near the lower viewport edge, normally when their top reaches about 85% of the viewport. Use small groups so long sections cannot become impossible to trigger.
+- [x] Play reveals once per document visit; keep completed content visible when scrolling back up.
+- [x] Keep already-visible content settled if motion initializes late. Never hide a readable section merely to replay its entrance.
+- [x] Limit simultaneous motion to one main sequence and one supporting accent. Cap a card-row stagger at 160ms.
+- [x] Do not pin sections, force horizontal scrolling, replace the scroll engine or add continuous parallax in this pass.
+- [x] Keep original image dimensions and final crop positions. Do not apply wipe/zoom movement to the About hero photograph.
 
 ## 4. Scroll choreography by page
 
@@ -76,22 +76,22 @@ These are proposed RMB timings, not measurements of Infinity's exact easing or d
 | Contact/privacy/404  | Essential copy, form fields, phone/email links, error messages and recovery actions stay visible immediately. At most animate the contact introduction.                      |
 | Final enquiry band   | One short grouped entrance as it enters view; do not delay or repeatedly pulse the action.                                                                                   |
 
-- [ ] Keep divider lines and counters decorative; do not suggest verified project statistics or completion states that RMB has not supplied.
-- [ ] After filtering, settle visible cards and refresh relevant trigger positions; a previously hidden card must never remain transparent or untabbable.
-- [ ] Finish a waiting reveal immediately when keyboard focus enters it or a hash link targets it.
-- [ ] Recalculate line wrapping/trigger positions after fonts and responsive widths change. Preserve completed state instead of replaying every heading on resize.
-- [ ] Prevent mask wrappers clipping Poppins descenders, focus outlines, image captions or clickable card edges.
+- [x] Keep divider lines and counters decorative; do not suggest verified project statistics or completion states that RMB has not supplied.
+- [x] After filtering, settle visible cards and refresh relevant trigger positions; a previously hidden card must never remain transparent or untabbable.
+- [x] Finish a waiting reveal immediately when keyboard focus enters it or a hash link targets it.
+- [x] Recalculate line wrapping/trigger positions after fonts and responsive widths change. Preserve completed state instead of replaying every heading on resize.
+- [x] Prevent mask wrappers clipping Poppins descenders, focus outlines, image captions or clickable card edges.
 
 ## 5. First-visit session introduction
 
 ### Proposed visual sequence
 
-- [ ] Use a charcoal cover with the existing white RMB mark and a single red rule. Keep the treatment consistent with the website's original branding.
-- [ ] Fade the mark in, animate the rule once, then dissolve/lift the cover while the destination heading begins to settle into place.
-- [ ] Overlap the last part of the intro with the hero entrance; do not chain a full intro, page fade and another delayed headline sequence.
-- [ ] Make this an honest brand introduction. Do not show a fake percentage, simulated asset count or claim that every file is loading.
-- [ ] Do not wait for all gallery images, network-idle, third-party widgets or font completion. The intro cannot represent network/server waiting before the first HTML arrives.
-- [ ] If the sequence cannot start before the page is already visible, skip it instead of adding a late cover.
+- [x] Use a charcoal cover with the existing white RMB mark and a single red rule. Keep the treatment consistent with the website's original branding.
+- [x] Fade the mark in, animate the rule once, then dissolve/lift the cover while the destination heading begins to settle into place.
+- [x] Overlap the last part of the intro with the hero entrance; do not chain a full intro, page fade and another delayed headline sequence.
+- [x] Make this an honest brand introduction. Do not show a fake percentage, simulated asset count or claim that every file is loading.
+- [x] Do not wait for all gallery images, network-idle, third-party widgets or font completion. The intro cannot represent network/server waiting before the first HTML arrives.
+- [x] If the sequence cannot start before the page is already visible, skip it instead of adding a late cover.
 
 ### Session and entry rules
 
@@ -106,30 +106,30 @@ Use an origin-scoped browser-tab session flag. Session storage survives navigati
 | Reduced motion                                                                         | Skip intro; show the page immediately                                                   |
 | Storage blocked/unavailable, background/prerendered document or initialization failure | Skip intro; ordinary usable page                                                        |
 
-- [ ] Store only a versioned seen flag; do not store enquiry data or add an account/session backend for this effect.
-- [ ] Write the seen flag before playback starts so an interrupted intro cannot replay repeatedly.
-- [ ] Treat reduced-motion and hidden/prerendered entry bypasses as seen when storage is writable. Never start a delayed intro when the preference/visibility changes or on a later internal page. If session eligibility is uncertain, skip it.
-- [ ] Guard all storage access. Accept opener-tab inheritance; do not introduce cookies solely to force another intro.
-- [ ] Dismiss immediately on Escape, pointer/touch interaction, keyboard focus or scrolling. Do not trap focus, lock scrolling or disable the underlying page.
-- [ ] Keep the decorative cover out of the accessibility tree; do not announce false loading status.
-- [ ] Make the document usable without JavaScript. The cover must have an independent maximum-duration cleanup, including if the animation library fails.
-- [ ] On reduced-motion changes, explicitly remove/hide the cover and restore final styles. Merely stopping its exit animation must not strand it on screen.
-- [ ] Clear stale cover/timeline state on restored documents without rebinding existing handlers. The browser's pageshow event includes history/bfcache restoration. [MDN pageshow](https://developer.mozilla.org/en-US/docs/Web/API/Window/pageshow_event).
+- [x] Store only a versioned seen flag; do not store enquiry data or add an account/session backend for this effect.
+- [x] Write the seen flag before playback starts so an interrupted intro cannot replay repeatedly.
+- [x] Treat reduced-motion and hidden/prerendered entry bypasses as seen when storage is writable. Never start a delayed intro when the preference/visibility changes or on a later internal page. If session eligibility is uncertain, skip it.
+- [x] Guard all storage access. Accept opener-tab inheritance; do not introduce cookies solely to force another intro.
+- [x] Dismiss immediately on Escape, pointer/touch interaction, keyboard focus or scrolling. Do not trap focus, lock scrolling or disable the underlying page.
+- [x] Keep the decorative cover out of the accessibility tree; do not announce false loading status.
+- [x] Make the document usable without JavaScript. The cover must have an independent maximum-duration cleanup, including if the animation library fails.
+- [x] On reduced-motion changes, explicitly remove/hide the cover and restore final styles. Merely stopping its exit animation must not strand it on screen.
+- [x] Clear stale cover/timeline state on restored documents without rebinding existing handlers. The browser's pageshow event includes history/bfcache restoration. [MDN pageshow](https://developer.mozilla.org/en-US/docs/Web/API/Window/pageshow_event).
 
 The bounded, once-per-session treatment also follows the principles in [21st's preloader reference](https://21st.dev/blog/react-preloader-components), while Infinity remains the visual/choreographic reference.
 
 ## 6. Page changes and incoming-page animation
 
-- [ ] Use a short native same-origin crossfade between participating pages, then coordinate the incoming heading/lead sequence with that fade.
-- [ ] Keep the outgoing document readable until navigation can complete. Do not prevent a link's default action merely to wait for an exit timeline.
-- [ ] Enable the enhancement consistently on source/destination pages. Cross-document view transitions require same-origin participation, and browser support remains uneven; normal document navigation is the required fallback. [MDN cross-document transitions](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@view-transition).
-- [ ] Avoid separate logo/header morphs and unrelated photograph morphing in the first pass. Check white/overlay header changes for ghosting or flashes.
-- [ ] Keep anchors, telephone/email links, downloads, external destinations, modified clicks, form submission and gallery/filter/menu actions outside the page-change choreography.
-- [ ] Preserve native Back/Forward scroll and form restoration. Do not force scroll-to-top, replay a fresh hero entrance over a restored view, or resubmit an enquiry.
-- [ ] Keep page titles, skip links and keyboard focus correct. Do not impose a blanket focus jump after every navigation.
-- [ ] Verify the native-transition snapshot and GSAP initialization never capture a blank heading or create a visible–hidden–visible flash, including with slow fonts/modules. Skip an entrance if its initial frame cannot be prepared in time.
-- [ ] Confirm a returning mobile menu or dialog cannot leave main content inert or the body scroll-locked.
-- [ ] Use browser transition APIs for this native approach. Do not mix in Astro router-only transition directives/events; those belong to ClientRouter. [Astro transition API](https://docs.astro.build/en/reference/modules/astro-transitions/).
+- [x] Use a short native same-origin crossfade between participating pages, then coordinate the incoming heading/lead sequence with that fade.
+- [x] Keep the outgoing document readable until navigation can complete. Do not prevent a link's default action merely to wait for an exit timeline.
+- [x] Enable the enhancement consistently on source/destination pages. Cross-document view transitions require same-origin participation, and browser support remains uneven; normal document navigation is the required fallback. [MDN cross-document transitions](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@view-transition).
+- [x] Avoid separate logo/header morphs and unrelated photograph morphing in the first pass. Check white/overlay header changes for ghosting or flashes.
+- [x] Keep anchors, telephone/email links, downloads, external destinations, modified clicks, form submission and gallery/filter/menu actions outside the page-change choreography.
+- [x] Preserve native Back/Forward scroll and form restoration. Do not force scroll-to-top, replay a fresh hero entrance over a restored view, or resubmit an enquiry.
+- [x] Keep page titles, skip links and keyboard focus correct. Do not impose a blanket focus jump after every navigation.
+- [x] Verify the native-transition snapshot and GSAP initialization never capture a blank heading or create a visible–hidden–visible flash, including with slow fonts/modules. Skip an entrance if its initial frame cannot be prepared in time.
+- [x] Confirm a returning mobile menu or dialog cannot leave main content inert or the body scroll-locked.
+- [x] Use browser transition APIs for this native approach. Do not mix in Astro router-only transition directives/events; those belong to ClientRouter. [Astro transition API](https://docs.astro.build/en/reference/modules/astro-transitions/).
 
 ### Coordinate the three layers
 
@@ -143,14 +143,14 @@ The bounded, once-per-session treatment also follows the principles in [21st's p
 
 ## 7. Performance and implementation boundaries
 
-- [ ] Prefer opacity/transforms for animation; do not animate layout dimensions or retain unnecessary compositor layers. Profile image masks before extending them site-wide. [Browser performance guidance](https://web.dev/articles/animations-guide).
-- [ ] Load only the selected GSAP modules. Record their actual compressed cost and compare production loading/interactivity against the current site before accepting the added payload.
-- [ ] Avoid new videos, animation canvases or large Lottie files for this simple RMB intro. Keep existing responsive photos and reserved layout space.
-- [ ] Create motion only when its dependencies/targets are ready. If setup fails, expose final states rather than hiding content.
-- [ ] Dispose/revert completed or abandoned timelines, text splits and triggers while preserving settled, visible content; cleanup must not restore a hidden waiting state. Manage mobile/preference changes centrally; avoid repeated listeners or per-element unthrottled scroll handlers.
-- [ ] Preserve the existing enquiry API, form validation, gallery focus return, filters and truthful content. No backend, tracking or business-claim work belongs to this animation pass.
+- [x] Prefer opacity/transforms for animation; do not animate layout dimensions or retain unnecessary compositor layers. Profile image masks before extending them site-wide. [Browser performance guidance](https://web.dev/articles/animations-guide).
+- [x] Load only the selected GSAP modules. Record their actual compressed cost and compare production loading/interactivity against the current site before accepting the added payload.
+- [x] Avoid new videos, animation canvases or large Lottie files for this simple RMB intro. Keep existing responsive photos and reserved layout space.
+- [x] Create motion only when its dependencies/targets are ready. If setup fails, expose final states rather than hiding content.
+- [x] Dispose/revert completed or abandoned timelines, text splits and triggers while preserving settled, visible content; cleanup must not restore a hidden waiting state. Manage mobile/preference changes centrally; avoid repeated listeners or per-element unthrottled scroll handlers.
+- [x] Preserve the existing enquiry API, form validation, gallery focus return, filters and truthful content. No backend, tracking or business-claim work belongs to this animation pass.
 
-Intended future touch points — **none changed by this planning task**:
+Implemented touch points:
 
 | File/area                               | Intended responsibility                                                                              |
 | --------------------------------------- | ---------------------------------------------------------------------------------------------------- |
@@ -164,22 +164,22 @@ Intended future touch points — **none changed by this planning task**:
 
 ## 8. Implementation and acceptance checklist
 
-- [ ] After implementation is authorized, prototype one heading reveal, one image wipe and one divider on a supporting page first.
-- [ ] Review that prototype at desktop/mobile widths and with reduced motion before applying the same protocols across templates.
-- [ ] Add the session intro and page-transition coordination only after the scroll primitives are stable.
-- [ ] Verify all 17 content routes at 320, 390, 768, 1024 and 1440px, plus a short landscape viewport. Keep the About hero full-height and its scroll action clear of the hosting badge.
+- [x] After implementation is authorized, prototype one heading reveal, one image wipe and one divider on a supporting page first.
+- [x] Review that prototype at desktop/mobile widths and with reduced motion before applying the same protocols across templates.
+- [x] Add the session intro and page-transition coordination only after the scroll primitives are stable.
+- [x] Verify all 17 content routes at 320, 390, 768, 1024 and 1440px, plus a short landscape viewport. Keep the About hero full-height and its scroll action clear of the hosting badge.
 - [ ] Check current Chrome/Edge, Safari/iOS and Firefox. Verify the unanimated navigation path wherever native transitions are unsupported.
 - [ ] Test a fresh session, internal navigation, reload, Back/Forward, opener-created tabs, restored tabs, direct deep links and direct contact entry against the session table.
-- [ ] Test disabled JavaScript, blocked storage, delayed/failed animation modules, failed images/fonts, slow CPU/network and switching reduced motion during an animation. No permanent overlay or hidden content may remain.
+- [x] Test disabled JavaScript, blocked storage, delayed/failed animation modules, failed images/fonts, slow CPU/network and switching reduced motion during an animation. No permanent overlay or hidden content may remain.
 - [ ] Check keyboard/skip-link navigation and screen-reader reading order. Text splitting must preserve the heading's meaning without duplicate or letter-by-letter announcements.
-- [ ] Confirm the first click/tap/keyboard activation during the cover still performs its intended action, rather than only dismissing the cover or swallowing a CTA/navigation event.
-- [ ] Fast-scroll both directions and resize/rotate during reveals. Completed groups must remain readable, with no layout shift, clipping or horizontal overflow.
-- [ ] Repeat hero, menu, filter, lightbox and enquiry feedback checks. Verify that animation does not duplicate submissions or discard typed details; use mocked mail for testing unless a controlled delivery is separately authorized.
-- [ ] Compare production bundle size, rendering, layout stability and interactivity against the pre-animation baseline; investigate any material regression.
-- [ ] Run Astro diagnostics, production build and relevant interaction/accessibility checks; record limitations instead of treating automated checks as complete accessibility proof.
+- [x] Confirm the first click/tap/keyboard activation during the cover still performs its intended action, rather than only dismissing the cover or swallowing a CTA/navigation event.
+- [x] Fast-scroll both directions and resize/rotate during reveals. Completed groups must remain readable, with no layout shift, clipping or horizontal overflow.
+- [x] Repeat hero, menu, filter, lightbox and enquiry feedback checks. Verify that animation does not duplicate submissions or discard typed details; use mocked mail for testing unless a controlled delivery is separately authorized.
+- [x] Compare production bundle size, rendering, layout stability and interactivity against the pre-animation baseline; investigate any material regression.
+- [x] Run Astro diagnostics, production build and relevant interaction/accessibility checks; record limitations instead of treating automated checks as complete accessibility proof.
 - [ ] Capture a short motion recording and settled desktop/mobile screenshots for review, then update the existing pull request with the motion specification and evidence.
 - [ ] Publish through the established Netlify workflow only as part of the later authorized implementation/release task. Keep the review site's indexing and mail-configuration status documented.
 
-## Planning status
+## Implementation status
 
-Source inspection, reference browsing and motion research are complete for this checklist. All unchecked items describe future implementation or verification. No animation was implemented or deployed, no dependency was installed, and no enquiry was sent during this planning task.
+The motion system is implemented and verified in Chromium, installed Microsoft Edge, Firefox and the Windows WebKit test engine. Real Safari/iOS hardware, full browser-restart tab restoration and an assistive-technology listening pass remain outside this environment. The original enquiry backend is unchanged; tests use fixtures or browser mocks and no external email was sent. Release evidence is recorded in motion-verification.md and netlify-deployment.md.

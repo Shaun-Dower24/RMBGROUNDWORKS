@@ -66,12 +66,12 @@ const audiences = [
   </section>
   <section id="our-approach" class="section">
     <div class="container about-split">
-      <div class="about-split__image" data-reveal>
+      <div class="about-split__image" data-motion="image">
         <Media src="about" alt="Operative finishing a concrete retaining wall" />
       </div>
-      <div data-reveal>
+      <div>
         <p class="eyebrow">From our base in St Albans</p>
-        <h2>
+        <h2 data-motion="text">
           One conversation.
           <br />
           The bigger picture.
@@ -95,7 +95,7 @@ const audiences = [
     <div class="container">
       <div class="section-heading">
         <p class="eyebrow">Who we work with</p>
-        <h2>
+        <h2 data-motion="text">
           Different projects.
           <br />A practical starting point.
         </h2>
@@ -114,7 +114,7 @@ const audiences = [
     <div class="container process-grid">
       <div class="process-grid__heading">
         <p class="eyebrow">How we work</p>
-        <h2>
+        <h2 data-motion="text">
           From your first plans
           <br />
           to the next stage.
@@ -127,6 +127,7 @@ const audiences = [
       <ol class="process-list">
         {stages.map((stage, i) => (
           <li data-reveal>
+            <span class="motion-rule" data-motion="rule" aria-hidden="true"></span>
             <span class="process-list__number">0{i + 1}</span>
             <div>
               <h3>{stage.title}</h3>

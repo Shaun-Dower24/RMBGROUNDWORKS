@@ -1,0 +1,198 @@
+/* Every effect enhances visible HTML. No library-dependent waiting classes. */
+[data-motion='text'] > div {
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
+}
+.motion-rule {
+  display: block;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.2;
+  pointer-events: none;
+}
+.service-row:has(> .motion-rule),
+.process-list li:has(> .motion-rule) {
+  position: relative;
+  border-top-color: transparent;
+}
+.service-row > .motion-rule,
+.process-list li > .motion-rule {
+  position: absolute;
+  inset: 0 0 auto;
+}
+.session-intro {
+  display: none;
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: var(--ink);
+  place-content: center;
+  justify-items: center;
+  gap: 30px;
+}
+.session-intro img {
+  width: clamp(180px, 20vw, 260px);
+  height: auto;
+}
+.session-intro__rule {
+  height: 2px;
+  width: 220px;
+  background: var(--red);
+  transform-origin: left;
+}
+.intro-active .session-intro {
+  display: grid;
+  animation: intro-exit 1.2s both;
+}
+.intro-active .session-intro img {
+  animation: intro-mark 0.55s both;
+}
+.intro-active .session-intro__rule {
+  animation: intro-rule 0.7s 0.1s both;
+}
+@keyframes intro-mark {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes intro-rule {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+@keyframes intro-exit {
+  0%,
+  60% {
+    opacity: 1;
+    visibility: visible;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition {
+    navigation: auto;
+  }
+  ::view-transition-group(root) {
+    animation-duration: 0.22s;
+  }
+  ::view-transition-old(root) {
+    animation: page-out 0.22s ease-out both;
+  }
+  ::view-transition-new(root) {
+    animation: page-in 0.22s ease-out both;
+  }
+  .motion-entry main > :first-child h1 {
+    animation: heading-enter 0.7s 0.05s both;
+  }
+  .intro-active.motion-entry main > :first-child h1 {
+    animation-delay: 0.65s;
+  }
+  .motion-entry
+    :is(
+      .hero__intro,
+      .hero .button-row,
+      .about-hero__description,
+      .about-hero__copy > .text-link,
+      .split-hero__description,
+      .split-hero__copy > .text-link,
+      .work-hero__copy > p:not(.eyebrow),
+      .work-hero__copy > .text-link,
+      .work-meta
+    ) {
+    animation: heading-enter 0.65s 0.12s both;
+  }
+  .intro-active.motion-entry
+    :is(
+      .hero__intro,
+      .hero .button-row,
+      .about-hero__description,
+      .about-hero__copy > .text-link,
+      .split-hero__description,
+      .split-hero__copy > .text-link,
+      .work-hero__copy > p:not(.eyebrow),
+      .work-hero__copy > .text-link,
+      .work-meta
+    ) {
+    animation-delay: 0.72s;
+  }
+  .motion-entry .work-hero__images {
+    animation: photo-enter 0.7s both;
+  }
+}
+@keyframes heading-enter {
+  from {
+    opacity: 0.5;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes photo-enter {
+  from {
+    opacity: 0.6;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@media (max-width: 768px) and (prefers-reduced-motion: no-preference) {
+  .intro-active .session-intro {
+    animation-duration: 0.95s;
+  }
+  .intro-active .session-intro img {
+    animation-duration: 0.4s;
+  }
+  .intro-active .session-intro__rule {
+    animation-duration: 0.55s;
+  }
+  @keyframes heading-enter {
+    from {
+      opacity: 0.5;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
+@keyframes page-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes page-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .intro-active .session-intro {
+    display: none !important;
+  }
+  ::view-transition-group(root),
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none !important;
+  }
+}
