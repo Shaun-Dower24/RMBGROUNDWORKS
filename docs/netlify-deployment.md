@@ -3,8 +3,8 @@
 Published 20 October 2026 at the user's request. The user selected a new `rmb-groundworks` project in the **systemsAI** team.
 
 - Live review site: https://rmb-groundworks.netlify.app
-- Immutable release: https://6ad7b7c3be6bba7e171cf407--rmb-groundworks.netlify.app
-- Deployment: https://app.netlify.com/projects/rmb-groundworks/deploys/6ad7b7c3be6bba7e171cf407
+- Immutable release: https://6ad7bd2c1282e3e500b76e55--rmb-groundworks.netlify.app
+- Deployment: https://app.netlify.com/projects/rmb-groundworks/deploys/6ad7bd2c1282e3e500b76e55
 - Site ID: `4e454043-6369-4cf7-a106-5f6c88c4f4b1`
 - Source branch: `feat/website-rebuild`; pull request: https://github.com/Shaun-Dower24/RMBGROUNDWORKS/pull/1
 
@@ -28,7 +28,7 @@ The current CLI builds automatically. Do not use `--no-build` with a stale build
 
 ## Live verification
 
-Netlify reports this release **ready**. Live HTTP checks at 18:51 UTC passed 28 assertions:
+Netlify reports the current release **ready**. The initial publication's live HTTP checks at 18:51 UTC passed 28 assertions:
 
 - All 17 content routes return 200 and retain `noindex, nofollow`.
 - Sampled original logo, font and hero image return 200; the social image URL uses the Netlify host and resolves.
@@ -37,6 +37,8 @@ Netlify reports this release **ready**. Live HTTP checks at 18:51 UTC passed 28 
 - The API returns 405 for GET, 400 for invalid input, 403 for a hostile Origin, and 503 for a valid same-origin enquiry while SMTP is absent.
 
 All seven mail configuration variables were checked absent in Netlify's production Functions scope without displaying values. No external email was sent. The live browser passed 24 interaction checks covering menu focus/trapping/Escape, hero controls, work filters, gallery controls/focus, enquiry validation, the actual missing-mail fallback, a browser-mocked accepted response, reduced motion and FAQs. A mocked accepted response is not a real delivery test.
+
+The subsequent hero refresh is published from code commit `8277279`. Live checks covered six page patterns at desktop/mobile widths, the About/service/work navigation actions and work filter. The final About hero passed six viewport checks: full-height photo at y0, no horizontal overflow, heading below the fixed header, and 72–76px of clearance beneath the scroll link so Netlify's badge cannot obscure it. The short landscape layout expands to fit its content. See [hero-design.md](hero-design.md) for the 21st.dev references and full local verification.
 
 ## Remaining launch setup
 

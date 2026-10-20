@@ -28,5 +28,6 @@ These are adapted design references, not copied React components. Existing Astro
 - Desktop/mobile About, services, work and contact screenshots plus the short landscape layout were visually reviewed.
 - `21st review` ran offline with deterministic local rules: 0 errors, 0 warnings, 75 informational hardcoded-colour suggestions across the stylesheet. It reviewed CSS, not Astro markup. Token declarations and intentional neutral/image scrims were retained; Astro diagnostics and browser checks cover the templates.
 - 24 existing interaction checks passed, including gallery/filter/navigation behaviour, enquiry failure recovery and mocked success. No external email was sent.
+- Published release: https://6ad7bd2c1282e3e500b76e55--rmb-groundworks.netlify.app. Live checks verified six page patterns at desktop/mobile widths plus the new scroll links and service-enquiry route. The final About layout passed six viewports, with 72–76px clearance beneath its scroll control; live desktop/mobile captures were reviewed.
 
 The homepage hero was not changed. Mail configuration and indexing retain the review-site settings documented in netlify-deployment.md.
