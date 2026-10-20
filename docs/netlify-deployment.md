@@ -3,8 +3,8 @@
 Published 20 October 2026 at the user's request. The user selected a new `rmb-groundworks` project in the **systemsAI** team.
 
 - Live review site: https://rmb-groundworks.netlify.app
-- Immutable release: https://6ad7c5969664749aed8b0c6d--rmb-groundworks.netlify.app
-- Deployment: https://app.netlify.com/projects/rmb-groundworks/deploys/6ad7c5969664749aed8b0c6d
+- Immutable release: https://6ad7c9a8d47111418290fffa--rmb-groundworks.netlify.app
+- Deployment: https://app.netlify.com/projects/rmb-groundworks/deploys/6ad7c9a8d47111418290fffa
 - Site ID: `4e454043-6369-4cf7-a106-5f6c88c4f4b1`
 - Source branch: `feat/website-rebuild`; pull request: https://github.com/Shaun-Dower24/RMBGROUNDWORKS/pull/1
 
@@ -47,3 +47,7 @@ The animation release is published from code commit `07385e4`, deployment `6ad7c
 The review site remains excluded from search indexing. The form provides direct phone/email routes but cannot send until the approved SMTP account, fixed sender and recipient are configured in Functions scope and the site is redeployed. See [enquiry-setup.md](enquiry-setup.md). The instance-local rate limit is not a global limit across Function instances.
 
 Before the company-domain launch, finish the owner fact/rights/privacy checks in [content-status.md](content-status.md), verify one controlled inbox delivery, agree DNS and old-URL redirects, and enable indexing only for the approved production domain. Keep preview/branch contexts excluded from indexing. No analytics is installed.
+
+## Scroll-flashing correction
+
+Code commit `8f8aeb7`, deployment `6ad7c9a8d47111418290fffa`, supersedes the initial animation release and is confirmed ready. Frame-by-frame continuous scrolling reproduced eight opacity resets before the fix and zero across 12 live desktop/mobile scenarios after it. See motion-verification.md and tests/browser/scroll-motion.mjs.

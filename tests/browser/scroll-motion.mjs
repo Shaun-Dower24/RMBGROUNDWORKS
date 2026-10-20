@@ -1,6 +1,7 @@
 // Run with Playwright CLI after opening the target site:
 // playwright-cli run-code --filename=tests/browser/scroll-motion.mjs --raw
 // This inspects live animation frames, rather than only the settled screenshots.
+// prettier-ignore
 async (page) => {
   const origin = new URL(page.url()).origin;
   const paths = [
@@ -100,4 +101,4 @@ async (page) => {
     runtimeErrors: errors,
     results: results.map(({ path, width, frames }) => ({ path, width, frames })),
   };
-};
+}

@@ -13,3 +13,5 @@
 - Replaced the About title/image strip with a full-viewport, top-anchored photographic hero. Adapted public 21st editorial/split references for services, work and contact. Passed85 width/route checks,14 axe samples (0 violations; image contrast manually reviewed), short-screen and mobile-menu checks. Details: docs/hero-design.md.
 
 - Animation release 07385e4 published to Netlify deployment 6ad7c5969664749aed8b0c6d (ready). Scroll masks/wipes/rules, session intro and native page fades verified locally and live; no backend changes or external mail. Evidence and remaining physical-device limits: docs/motion-verification.md.
+
+- User-reported flashing reproduced as eight visible-to-hidden resets. Fixed deferred from-tweens/global queue in 8f8aeb7; ready Netlify deployment 6ad7c9a8d47111418290fffa. Saved frame-level browser regression: 2,930 local / 2,924 live frames, 12 scenarios each, zero resets. Settled screenshots alone did not catch the original defect.
