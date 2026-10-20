@@ -27,8 +27,11 @@ async (page) => {
         ),
       );
       await page.evaluate(() => {
-        window.scrollAudit = { frames: 0, regressions: [], finished: false, peaks: new Map() };
+        window.scrollAudit = { frames: 0, regressions: [], earlyStarts: [], starts: 0, finished: false, peaks: new Map() };
         const nodes = [...document.querySelectorAll('[data-reveal], [data-motion]')];
+        const prepared = new Set(nodes.filter(element => element.style.opacity === '0' ||
+          (element.dataset.motion === 'image' && getComputedStyle(element).clipPath !== 'none') ||
+          (element.dataset.motion === 'text' && element.querySelector('[aria-hidden] > [aria-hidden]'))));
         function sample() {
           const audit = window.scrollAudit;
           audit.frames++;
@@ -44,7 +47,7 @@ async (page) => {
                     0,
                     1 -
                       new DOMMatrix(getComputedStyle(line).transform).m42 /
-                        line.getBoundingClientRect().height,
+                        line.offsetHeight,
                   )
                 : 1;
             } else if (element.dataset.motion === 'image' && style.clipPath !== 'none') {
@@ -52,6 +55,13 @@ async (page) => {
             }
             if (element.dataset.motion === 'rule') return;
             const peak = audit.peaks.get(index) || 0;
+            if (peak === 0 && progress > .03 && prepared.has(element) && !element.dataset.motionDone) {
+              audit.starts++;
+              const visible = Math.max(0, Math.min(rect.bottom, innerHeight) - Math.max(rect.top, 0));
+              const required = Math.min(element.offsetHeight, Math.min(Math.max(element.offsetHeight * .5, innerHeight * .3), innerHeight * .45));
+              const atPageEnd = scrollY >= document.documentElement.scrollHeight - innerHeight - 3;
+              if (visible < required - 20 && !atPageEnd) audit.earlyStarts.push({index, visible, required, top: rect.top});
+            }
             if (peak > 0.15 && progress < peak - 0.12) {
               audit.regressions.push({
                 index,
@@ -86,18 +96,22 @@ async (page) => {
         return {
           frames: window.scrollAudit.frames,
           regressions: window.scrollAudit.regressions,
+          earlyStarts: window.scrollAudit.earlyStarts,
+          starts: window.scrollAudit.starts,
           overflow: document.documentElement.scrollWidth > innerWidth + 1,
         };
       });
       results.push({ path, width, ...result });
     }
   }
-  const failures = results.filter((result) => result.regressions.length || result.overflow);
+  const failures = results.filter((result) => result.regressions.length || result.earlyStarts.length || result.overflow);
   if (failures.length || errors.length) throw new Error(JSON.stringify({ failures, errors }));
   return {
     scenarios: results.length,
     sampledFrames: results.reduce((sum, result) => sum + result.frames, 0),
     opacityOrMaskRegressions: 0,
+    earlyStarts: 0,
+    observedStarts: results.reduce((sum, result) => sum + result.starts, 0),
     runtimeErrors: errors,
     results: results.map(({ path, width, frames }) => ({ path, width, frames })),
   };

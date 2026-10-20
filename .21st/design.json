@@ -36,7 +36,7 @@
     "radius": {},
     "shadows": {},
     "motion": {
-      "scroll": "GSAP 3.15.0 + ScrollTrigger + SplitText; once per document; masked selected headings, photographic wipes, bounded row stagger and drawing rules",
+      "scroll": "GSAP 3.15.0 + ScrollTrigger + SplitText; once per document; masked selected headings, photographic wipes, bounded row stagger and drawing rules; size-aware first playback at 55\u201370% viewport top, clamped to page bounds",
       "intro": "Original RMB mark/rule; 1.2s desktop, .95s mobile; once per browser-tab session; fail-open maximum 1.5s",
       "navigation": "Native same-origin 220ms document crossfade; ordinary-navigation fallback",
       "accessibility": "Reduced motion is static; no pinning, scroll replacement, focus trap or blocking cover; resize settles pending effects"

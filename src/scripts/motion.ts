@@ -175,9 +175,17 @@ try {
         }
         reveal.animation = animation;
         reveals.push(reveal);
+        const triggerElement = kind === 'rule' ? element.parentElement! : element;
         reveal.trigger = ScrollTrigger.create({
-          trigger: element,
-          start: 'top 85%',
+          trigger: triggerElement,
+          start: () => {
+            // Let short copy fully enter and show a meaningful part of tall photos/cards.
+            const inset = Math.min(
+              Math.max(triggerElement.offsetHeight * 0.5, innerHeight * 0.3),
+              innerHeight * 0.45,
+            );
+            return `clamp(top bottom-=${Math.round(inset)}px)`;
+          },
           end: 'bottom top',
           onEnter: () => {
             if (!reveal.complete) reveal.animation.play();

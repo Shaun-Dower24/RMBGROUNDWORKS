@@ -53,7 +53,7 @@ These are proposed RMB timings, not measurements of Infinity's exact easing or d
 | Between-page transition | Approximately 180–240ms crossfade; no forced navigation delay                                                  | Same short fade where supported; ordinary navigation for reduced motion/unsupported browsers |
 
 - [x] Use one shared easing/timing vocabulary; favor smooth ease-out entrances and avoid bounce/elastic movement.
-- [x] Trigger below-fold groups near the lower viewport edge, normally when their top reaches about 85% of the viewport. Use small groups so long sections cannot become impossible to trigger.
+- [x] Trigger below-fold groups once a meaningful portion is in view: use half the element height, with the viewport inset bounded to 30–45% of screen height (top normally at 55–70%). Short copy is fully visible; tall photos/cards do not need to fit the entire screen. Clamp triggers to the document scroll range.
 - [x] Play reveals once per document visit; keep completed content visible when scrolling back up.
 - [x] Keep already-visible content settled if motion initializes late. Never hide a readable section merely to replay its entrance.
 - [x] Start each local row immediately on viewport entry; never queue readable content behind unrelated sequences. Cap a card-row stagger at 160ms.
