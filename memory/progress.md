@@ -15,3 +15,5 @@
 - Animation release 07385e4 published to Netlify deployment 6ad7c5969664749aed8b0c6d (ready). Scroll masks/wipes/rules, session intro and native page fades verified locally and live; no backend changes or external mail. Evidence and remaining physical-device limits: docs/motion-verification.md.
 
 - User-reported flashing reproduced as eight visible-to-hidden resets. Fixed deferred from-tweens/global queue in 8f8aeb7; ready Netlify deployment 6ad7c9a8d47111418290fffa. Saved frame-level browser regression: 2,930 local / 2,924 live frames, 12 scenarios each, zero resets. Settled screenshots alone did not catch the original defect.
+
+- Later animation starts requested: 0ab5ba0 published in ready deployment 6ad7ccacf15425f5b390fe7f. Trigger inset uses half element height bounded to 30–45% of viewport, with page-range clamping. Local 12 scenarios/141 starts: no early starts or flashing; live 28 starts confirm later timing.

@@ -28,7 +28,7 @@ Real Safari/iOS hardware, full browser-restart tab restoration and an assistive-
 
 ## Bundle and operational impact
 
-GSAP is pinned to 3.15.0. Production client files total **131,117 bytes raw / 51,211 gzip**: shared interaction script 5,706/2,035, conditional import wrapper 1,932/1,013, optional GSAP/reveal chunk 123,479/48,163. The previously inspected client baseline was 6,271/2,221. The sizeable optional chunk is the cost of the approved GSAP/ScrollTrigger/SplitText approach; contact and initially reduced-motion documents avoid its request. Gzip figures are locally compressed file sizes, not a claim about CDN transfer encoding.
+GSAP is pinned to 3.15.0. Production client files total **131,298 bytes raw / 51,288 gzip**: shared interaction script 5,706/2,035, conditional import wrapper 1,961/1,041, optional GSAP/reveal chunk 123,631/48,212. The previously inspected client baseline was 6,271/2,221. The sizeable optional chunk is the cost of the approved GSAP/ScrollTrigger/SplitText approach; contact and initially reduced-motion documents avoid its request. Gzip figures are locally compressed file sizes, not a claim about CDN transfer encoding.
 
 The npm audit remains at the existing 13 high development-tool findings documented in dependency-audit.md. No backend, SMTP, tracking, domain or indexing settings were changed for animation. The Netlify review site retains noindex and its honest missing-mail fallback.
 
@@ -60,4 +60,6 @@ The user requested that animation begin only once content is properly in view. T
 
 The About desktop photo's measured visible area at first playback increased from 185/650px to 335/650px. At 390×844, the 277px-tall photo was fully visible at first playback. Selected headings were also fully within view in the desktop/mobile timing samples. The slow-wheel timing sample recorded 14 starts per viewport.
 
-The saved regression check now validates first-play visible area as well as opacity/mask continuity, using untransformed line height for rotated text. Local verification: 12 desktop/mobile scenarios, 2,926 sampled frames, 141 observed starts, zero early-start failures, zero opacity/mask regressions and zero runtime errors. Astro diagnostics pass. Release evidence follows after publication.
+The saved regression check now validates first-play visible area as well as opacity/mask continuity, using untransformed line height for rotated text. Local verification: 12 desktop/mobile scenarios, 2,926 sampled frames, 141 observed starts, zero early-start failures, zero opacity/mask regressions and zero runtime errors. Astro diagnostics (30 files, zero errors/warnings/hints) and production build pass. Short-landscape sampling (844×390) also recorded 14 starts with no trigger top below 67% of viewport height.
+
+Code commit **0ab5ba0** is published as deployment **6ad7ccacf15425f5b390fe7f**, confirmed ready. Published desktop/mobile sampling recorded 28 starts; the desktop photo began at 335/650px visible and the mobile photo at 277/277px visible. All sampled animation tops were at or above 70% of viewport height. The existing review tab was refreshed. `rmb-motion-timing-preview.webm` and `rmb-motion-timing-live.png` were saved for review.

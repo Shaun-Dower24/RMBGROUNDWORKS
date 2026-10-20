@@ -3,8 +3,8 @@
 Published 20 October 2026 at the user's request. The user selected a new `rmb-groundworks` project in the **systemsAI** team.
 
 - Live review site: https://rmb-groundworks.netlify.app
-- Immutable release: https://6ad7c9a8d47111418290fffa--rmb-groundworks.netlify.app
-- Deployment: https://app.netlify.com/projects/rmb-groundworks/deploys/6ad7c9a8d47111418290fffa
+- Immutable release: https://6ad7ccacf15425f5b390fe7f--rmb-groundworks.netlify.app
+- Deployment: https://app.netlify.com/projects/rmb-groundworks/deploys/6ad7ccacf15425f5b390fe7f
 - Site ID: `4e454043-6369-4cf7-a106-5f6c88c4f4b1`
 - Source branch: `feat/website-rebuild`; pull request: https://github.com/Shaun-Dower24/RMBGROUNDWORKS/pull/1
 
@@ -51,3 +51,7 @@ Before the company-domain launch, finish the owner fact/rights/privacy checks in
 ## Scroll-flashing correction
 
 Code commit `8f8aeb7`, deployment `6ad7c9a8d47111418290fffa`, supersedes the initial animation release and is confirmed ready. Frame-by-frame continuous scrolling reproduced eight opacity resets before the fix and zero across 12 live desktop/mobile scenarios after it. See motion-verification.md and tests/browser/scroll-motion.mjs.
+
+## Later playback triggers
+
+Code commit `0ab5ba0`, deployment `6ad7ccacf15425f5b390fe7f`, is confirmed ready. Size-aware starts replace the 85% viewport trigger; the desktop About photo now begins with 335/650px visible, and the mobile photo is fully visible. The no-flashing fix is retained. Local first-play/frame regression covers 12 scenarios and 141 observed starts; 28 live About starts were sampled at desktop/mobile widths.
