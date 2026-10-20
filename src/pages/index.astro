@@ -1,0 +1,222 @@
+---
+export const prerender = true;
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import Media from '../components/Media.astro';
+import WorkCard from '../components/WorkCard.astro';
+import ContactBand from '../components/ContactBand.astro';
+import { services, workStudies, process as stages } from '../data/site';
+const featured = [workStudies[0], workStudies[3], workStudies[1], workStudies[5]];
+const heroSlides = [
+  {
+    src: 'hero',
+    alt: 'RMB excavator working alongside new-build foundations',
+    caption: 'Foundations & substructure',
+  },
+  {
+    src: 'gallery/21',
+    alt: 'Basement formwork being lifted into an excavation',
+    caption: 'Basement civil works',
+  },
+  {
+    src: 'gallery/07',
+    alt: 'Completed car park with marked bays and an RMB van',
+    caption: 'Car parks & external works',
+  },
+];
+---
+
+<Base title="Groundworks & Civil Engineering in Hertfordshire" overlay>
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero__slides">
+      {heroSlides.map((slide, i) => (
+        <div
+          class:list={['hero__slide', { 'is-active': i === 0 }]}
+          data-hero-slide
+          data-caption={slide.caption}
+          aria-hidden={i !== 0}
+        >
+          <Media src={slide.src} alt={slide.alt} eager={i === 0} sizes="100vw" />
+        </div>
+      ))}
+    </div>
+    <div class="container hero__content">
+      <p class="eyebrow">St Albans · Hertfordshire · London · Home Counties</p>
+      <h1 id="hero-title">
+        From the
+        <br />
+        ground up<span>.</span>
+      </h1>
+      <p class="hero__intro">
+        Specialist groundworks. Civil engineering.
+        <br />
+        The groundwork behind your next project.
+      </p>
+      <div class="button-row">
+        <a class="button" href="/contact/">
+          Discuss your project <Icon />
+        </a>
+        <a class="text-link" href="/projects">
+          Explore our work <Icon />
+        </a>
+      </div>
+    </div>
+    <div class="hero__bottom">
+      <a class="hero__scroll" href="#about">
+        <Icon name="down" />
+        Scroll to explore
+      </a>
+      <div class="hero__caption">
+        <p class="eyebrow">On site with RMB</p>
+        <p data-hero-caption aria-live="polite">
+          Foundations & substructure
+        </p>
+      </div>
+      <div class="hero__controls">
+        <span class="hero__count" data-hero-count>
+          01 / 03
+        </span>
+        <button data-hero-prev aria-label="Previous work image">
+          <Icon name="left" />
+        </button>
+        <button data-hero-next aria-label="Next work image">
+          <Icon name="right" />
+        </button>
+      </div>
+    </div>
+  </section>
+  <div class="capability-strip">
+    <div class="container">
+      <p>Groundworks & substructure</p>
+      <p>Drainage & civil works</p>
+      <p>Hard landscaping & external works</p>
+      <span>Based in St Albans</span>
+    </div>
+  </div>
+  <section id="about" class="section">
+    <div class="container">
+      <div class="intro-grid" data-reveal>
+        <p class="eyebrow">A foundation for your project</p>
+        <div>
+          <h2>
+            Practical expertise.
+            <br />
+            At every level.
+          </h2>
+          <div class="intro-grid__copy">
+            <p>
+              From the first excavation to the external finishes, RMB Groundworks brings together
+              the groundworks and civil engineering behind a build.
+            </p>
+            <p>
+              Based in St Albans, we work with developers, main contractors, commercial property
+              managers and public sector clients across Hertfordshire, London and the Home Counties.
+            </p>
+          </div>
+          <a class="text-link" href="/about/">
+            Get to know RMB <Icon />
+          </a>
+        </div>
+      </div>
+      <div class="intro-image" data-reveal>
+        <Media
+          src="about"
+          alt="RMB operative finishing a concrete retaining wall on site"
+          sizes="90vw"
+        />
+        <span class="intro-image__label">Real people. Real groundwork.</span>
+      </div>
+    </div>
+  </section>
+  <section class="section section--mist">
+    <div class="container">
+      <div class="section-heading" data-reveal>
+        <p class="eyebrow">A closer look</p>
+        <h2>
+          Groundwork,
+          <br />
+          in focus.
+        </h2>
+      </div>
+      <div class="work-grid">
+        {featured.map((work) => (
+          <WorkCard work={work} />
+        ))}
+      </div>
+      <div class="works-footer">
+        <a class="text-link" href="/projects">
+          Explore all our work <Icon />
+        </a>
+      </div>
+    </div>
+  </section>
+  <section id="services" class="section dark-section">
+    <div class="container">
+      <div class="section-heading" data-reveal>
+        <p class="eyebrow">What we do</p>
+        <h2>
+          The groundwork
+          <br />
+          behind your project.
+        </h2>
+      </div>
+      <div>
+        {services.map((service, i) => (
+          <a class="service-row" href={`/services/${service.slug}/`} data-reveal>
+            <span class="service-row__number">0{i + 1}</span>
+            <h3>{service.shortTitle}</h3>
+            <p>{service.description}</p>
+            <span class="service-row__arrow">
+              <Icon />
+            </span>
+          </a>
+        ))}
+      </div>
+      <a class="text-link" href="/services/">
+        Explore our services <Icon />
+      </a>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container">
+      <div class="process-grid">
+        <div class="process-grid__heading" data-reveal>
+          <p class="eyebrow">How we work</p>
+          <h2>
+            A clear process.
+            <br />
+            From first conversation.
+          </h2>
+          <p>
+            Every site is different. We start with your plans, the scope of work and the
+            practicalities of the site, then work through the next steps together.
+          </p>
+        </div>
+        <ol class="process-list">
+          {stages.map((stage, i) => (
+            <li data-reveal>
+              <span class="process-list__number">0{i + 1}</span>
+              <div>
+                <h3>{stage.title}</h3>
+                <p>{stage.body}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+      <div class="coverage-note">
+        <p class="eyebrow">
+          Local knowledge.
+          <br />A wider reach.
+        </p>
+        <p>
+          Working across Hertfordshire, London and the Home Counties. Tell us where your site is and
+          what you have in mind, and we can discuss how RMB can help.
+        </p>
+      </div>
+    </div>
+  </section>
+  <div id="quote">
+    <ContactBand />
+  </div>
+</Base>

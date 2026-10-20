@@ -1,0 +1,7 @@
+node_modules/
+dist/
+.astro/
+.tmp/
+.playwright-cli/
+public/
+package-lock.json

@@ -1,0 +1,28 @@
+---
+import type { WorkStudy } from '../data/site';
+import Media from './Media.astro';
+import Icon from './Icon.astro';
+interface Props {
+  work: WorkStudy;
+  class?: string;
+}
+const { work, class: className = '' } = Astro.props;
+---
+
+<article class:list={['work-card', className]} data-category={work.category}>
+  <a href={`/projects/${work.slug}/`} class="work-card__link">
+    <div class="work-card__image">
+      <Media src={`gallery/${work.image}`} alt={work.imageAlt} />
+      <span class="work-card__open">
+        <Icon />
+      </span>
+    </div>
+    <div class="work-card__caption">
+      <div>
+        <p class="eyebrow">{work.category}</p>
+        <h3>{work.title}</h3>
+      </div>
+      <Icon />
+    </div>
+  </a>
+</article>

@@ -1,0 +1,64 @@
+{
+  "version": 1,
+  "project": {
+    "name": "rmb-groundworks",
+    "productType": null,
+    "stack": [
+      "astro"
+    ]
+  },
+  "sources": {
+    "tokens": [],
+    "components": [],
+    "assets": [],
+    "instructions": [
+      "CLAUDE.md"
+    ]
+  },
+  "design": {
+    "colorMode": "light with dark sections",
+    "colors": {
+      "brand": "#EC2028",
+      "action": "#D11C23",
+      "ink": "#171717",
+      "paper": "#FFFFFF",
+      "mist": "#F4F3F0"
+    },
+    "typography": {
+      "display": "Poppins",
+      "body": "Inter"
+    },
+    "spacing": {},
+    "radius": {},
+    "shadows": {},
+    "motion": {},
+    "density": "unknown"
+  },
+  "components": {
+    "installed": [],
+    "preferredPrimitives": [],
+    "patterns": []
+  },
+  "constraints": {
+    "must": [],
+    "avoid": []
+  },
+  "decisions": [
+    "Original RMB marks, Poppins/Inter and photographs retained.",
+    "Infinity reference informs photographic composition and editorial spacing.",
+    "Natural scroll, manual hero and complete reduced-motion path.",
+    "Truthful work collections; no unsupported case-study claims.",
+    "21st catalog search unavailable without sign-in; no library code imported."
+  ],
+  "evidence": [
+    {
+      "fact": "project.instructions",
+      "source": "CLAUDE.md"
+    },
+    {
+      "fact": "project.stack:astro",
+      "source": "package.json"
+    }
+  ],
+  "generatedAt": "2026-10-20T18:10:26.053Z"
+}

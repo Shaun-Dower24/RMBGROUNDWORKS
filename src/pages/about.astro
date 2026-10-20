@@ -1,0 +1,128 @@
+---
+export const prerender = true;
+import Base from '../layouts/Base.astro';
+import Media from '../components/Media.astro';
+import Icon from '../components/Icon.astro';
+import ContactBand from '../components/ContactBand.astro';
+import { process as stages } from '../data/site';
+const audiences = [
+  {
+    title: 'Developers',
+    body: 'Discuss foundations, substructure and the wider groundworks package against your plans.',
+  },
+  {
+    title: 'Main contractors',
+    body: 'Start with the tender scope, construction programme and interfaces between trades.',
+  },
+  {
+    title: 'Commercial clients',
+    body: 'Talk through car parks, drainage and external works, including site access and working arrangements.',
+  },
+  {
+    title: 'Public sector clients',
+    body: 'Share the project requirements and procurement information needed to assess the scope.',
+  },
+];
+---
+
+<Base
+  title="About RMB Groundworks"
+  description="Based in St Albans, RMB Groundworks provides groundworks and civil engineering for developers, main contractors, commercial and public sector clients."
+>
+  <section class="page-heading container">
+    <p class="eyebrow">About RMB</p>
+    <h1>
+      Grounded in the work.
+      <br />
+      Focused on your project.
+    </h1>
+    <div class="page-heading__bottom">
+      <p>
+        Groundworks and civil engineering based in St Albans. From early site works to the external
+        finish, we start with the practical needs of your build.
+      </p>
+    </div>
+  </section>
+  <div class="page-image">
+    <Media
+      src="gallery/03"
+      alt="RMB operatives working on basement reinforcement and formwork"
+      eager
+      sizes="100vw"
+    />
+  </div>
+  <section class="section">
+    <div class="container about-split">
+      <div class="about-split__image" data-reveal>
+        <Media src="about" alt="Operative finishing a concrete retaining wall" />
+      </div>
+      <div data-reveal>
+        <p class="eyebrow">From our base in St Albans</p>
+        <h2>
+          One conversation.
+          <br />
+          The bigger picture.
+        </h2>
+        <p>
+          RMB Groundworks works across Hertfordshire, London and the Home Counties, bringing
+          together foundations, basement civil works, drainage and external works.
+        </p>
+        <p>
+          Our clients include residential developers, main contractors, commercial property managers
+          and public sector organisations. Whether you have a defined tender package or an early
+          project enquiry, we start by understanding the scope and the site.
+        </p>
+        <a class="text-link" href="/services/">
+          Explore our capabilities <Icon />
+        </a>
+      </div>
+    </div>
+  </section>
+  <section class="section dark-section">
+    <div class="container">
+      <div class="section-heading">
+        <p class="eyebrow">Who we work with</p>
+        <h2>
+          Different projects.
+          <br />A practical starting point.
+        </h2>
+      </div>
+      <div class="audience-grid">
+        {audiences.map((item) => (
+          <div data-reveal>
+            <h3>{item.title}</h3>
+            <p>{item.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container process-grid">
+      <div class="process-grid__heading">
+        <p class="eyebrow">How we work</p>
+        <h2>
+          From your first plans
+          <br />
+          to the next stage.
+        </h2>
+        <p>
+          Tell us what you are building, where the site is and what information you have available.
+          These five stages give a starting point for the conversation.
+        </p>
+      </div>
+      <ol class="process-list">
+        {stages.map((stage, i) => (
+          <li data-reveal>
+            <span class="process-list__number">0{i + 1}</span>
+            <div>
+              <h3>{stage.title}</h3>
+              <p>{stage.body}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+  <ContactBand />
+</Base>

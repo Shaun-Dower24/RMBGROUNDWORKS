@@ -1,0 +1,63 @@
+---
+import Icon from './Icon.astro';
+import { contacts } from '../data/site';
+---
+
+<footer class="site-footer">
+  <div class="container footer-top">
+    <a class="footer-brand" href="/" aria-label="RMB Groundworks home">
+      <img src="/media/logo-white.svg" alt="RMB Groundworks Limited" width="92" height="101" />
+    </a>
+    <div class="footer-message">
+      <p class="eyebrow">Groundworks & civil engineering</p>
+      <p>
+        From the ground up.
+        <br />
+        Across the Home Counties.
+      </p>
+    </div>
+    <a class="footer-back" href="#top" aria-label="Back to top">
+      <Icon name="down" />
+    </a>
+  </div>
+  <div class="container footer-grid">
+    <div>
+      <p class="footer-label">Start a conversation</p>
+      <a class="footer-phone" href={contacts.phoneHref}>
+        {contacts.phone}
+      </a>
+      <a class="footer-email" href={contacts.emailHref}>
+        {contacts.email} <Icon />
+      </a>
+      <p class="footer-hours">{contacts.hours}</p>
+    </div>
+    <div>
+      <p class="footer-label">Explore</p>
+      <a href="/services/">Our services</a>
+      <a href="/projects">Our work</a>
+      <a href="/about/">About RMB</a>
+      <a href="/contact/?intent=tender">Tender enquiries</a>
+    </div>
+    <div>
+      <p class="footer-label">Our base</p>
+      <p>
+        {contacts.addressLines.map((line) => (
+          <Fragment>
+            {line}
+            <br />
+          </Fragment>
+        ))}
+      </p>
+      <p class="footer-coverage">
+        Working across Hertfordshire,
+        <br />
+        London & the Home Counties.
+      </p>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <p>© {new Date().getFullYear()} RMB Groundworks Limited</p>
+    <a href="/privacy/">Privacy & cookies</a>
+    <p>Built on solid ground.</p>
+  </div>
+</footer>

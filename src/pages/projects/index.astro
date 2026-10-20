@@ -1,0 +1,49 @@
+---
+export const prerender = true;
+import Base from '../../layouts/Base.astro';
+import WorkCard from '../../components/WorkCard.astro';
+import ContactBand from '../../components/ContactBand.astro';
+import { workStudies, categories } from '../../data/site';
+---
+
+<Base
+  title="Our Work — Groundworks in Focus"
+  description="Explore original RMB Groundworks photography: foundations, basement civil works, drainage, car parks, block and beam floors and hard landscaping."
+>
+  <section class="page-heading container">
+    <p class="eyebrow">Our work</p>
+    <h1>
+      On site.
+      <br />
+      In the detail.
+    </h1>
+    <div class="page-heading__bottom">
+      <p>
+        A closer look at the groundwork. Explore our original site photography, from excavation and
+        reinforcement to drainage and finished external works.
+      </p>
+    </div>
+  </section>
+  <section class="section section--mist" style="padding-top:35px">
+    <div class="container">
+      <div class="filter-bar" hidden data-filters>
+        <div class="filters" role="group" aria-label="Filter work by service">
+          {['All', ...categories].map((category, i) => (
+            <button data-filter={category} aria-pressed={i === 0}>
+              {category === 'All' ? 'All work' : category}
+            </button>
+          ))}
+        </div>
+        <p class="filter-count" data-filter-count role="status">
+          06 work collections
+        </p>
+      </div>
+      <div class="work-grid">
+        {workStudies.map((work) => (
+          <WorkCard work={work} />
+        ))}
+      </div>
+    </div>
+  </section>
+  <ContactBand title="Have a similar project in mind?" />
+</Base>

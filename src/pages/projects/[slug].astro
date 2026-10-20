@@ -1,0 +1,86 @@
+---
+export const prerender = true;
+import Base from '../../layouts/Base.astro';
+import Media from '../../components/Media.astro';
+import Icon from '../../components/Icon.astro';
+import Gallery from '../../components/Gallery.astro';
+import WorkCard from '../../components/WorkCard.astro';
+import ContactBand from '../../components/ContactBand.astro';
+import { workStudies, serviceBySlug } from '../../data/site';
+export function getStaticPaths() {
+  return workStudies.map((work) => ({ params: { slug: work.slug }, props: { work } }));
+}
+const { work } = Astro.props;
+const service = serviceBySlug(work.serviceSlug)!;
+const related = workStudies.filter((item) => item.slug !== work.slug).slice(0, 2);
+---
+
+<Base
+  title={`${work.title} — Work in Focus`}
+  description={work.summary}
+  image={`/media/gallery/${work.image}-1280.webp`}
+>
+  <section class="page-heading container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/projects">Our work</a>
+      <span>/</span>
+      <span aria-current="page">{work.title}</span>
+    </nav>
+    <p class="eyebrow">Work in focus</p>
+    <h1>
+      {work.title}
+      <span class="red-dot">.</span>
+    </h1>
+    <div class="work-meta">
+      <div>
+        <p class="eyebrow">Discipline</p>
+        <p>{work.category}</p>
+      </div>
+      <div>
+        <p class="eyebrow">Explore the service</p>
+        <a href={`/services/${service.slug}/`}>{service.shortTitle} ↗</a>
+      </div>
+      <div>
+        <p class="eyebrow">From the RMB site gallery</p>
+        <p>Original work photography</p>
+      </div>
+    </div>
+  </section>
+  <div class="page-image">
+    <Media src={`gallery/${work.image}`} alt={work.imageAlt} eager sizes="100vw" />
+  </div>
+  <section class="section">
+    <div class="container">
+      <div class="work-intro">
+        <p>{work.description}</p>
+        <ul class="scope-list">
+          {work.highlights.map((item) => (
+            <li>
+              <Icon name="check" />
+              {item}
+            </li>
+          ))}
+        </ul>
+      </div>
+      <p class="work-collection-note">
+        A selection of original RMB work photography across different sites and construction stages.
+        Get in touch to discuss work relevant to your project.
+      </p>
+    </div>
+  </section>
+  <Gallery ids={work.gallery} label="The work, up close." />
+  <section class="section section--mist">
+    <div class="container">
+      <div class="section-heading">
+        <p class="eyebrow">Keep exploring</p>
+        <h2>More from the ground up.</h2>
+      </div>
+      <div class="work-grid">
+        {related.map((item) => (
+          <WorkCard work={item} />
+        ))}
+      </div>
+    </div>
+  </section>
+  <ContactBand title="Let’s talk about your groundworks." />
+</Base>

@@ -1,0 +1,143 @@
+---
+export const prerender = true;
+import Base from '../../layouts/Base.astro';
+import Media from '../../components/Media.astro';
+import Icon from '../../components/Icon.astro';
+import Gallery from '../../components/Gallery.astro';
+import ContactBand from '../../components/ContactBand.astro';
+import WorkCard from '../../components/WorkCard.astro';
+import { services, workStudies } from '../../data/site';
+export function getStaticPaths() {
+  return services.map((service) => ({ params: { slug: service.slug }, props: { service } }));
+}
+const { service } = Astro.props;
+const related = services.filter((item) => service.relatedServiceSlugs.includes(item.slug));
+const matchingWork = workStudies.filter((item) => item.serviceSlug === service.slug);
+const relevantWork = matchingWork.length
+  ? matchingWork
+  : workStudies
+      .filter((item) => service.relatedServiceSlugs.includes(item.serviceSlug))
+      .slice(0, 2);
+---
+
+<Base
+  title={service.title}
+  description={service.description}
+  image={`/media/services/${service.image}-1280.webp`}
+>
+  <section class="page-heading container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span>/</span>
+      <a href="/services/">Services</a>
+      <span>/</span>
+      <span aria-current="page">{service.title}</span>
+    </nav>
+    <p class="eyebrow">Our capabilities</p>
+    <h1>
+      {service.title}
+      <span class="red-dot">.</span>
+    </h1>
+    <div class="page-heading__bottom">
+      <p>{service.description}</p>
+      <a class="text-link" href={`/contact/?service=${service.slug}`}>
+        Discuss your project <Icon />
+      </a>
+    </div>
+  </section>
+  <div class="page-image">
+    <Media src={`services/${service.image}`} alt={service.imageAlt} eager sizes="100vw" />
+  </div>
+  <section class="section">
+    <div class="container service-overview">
+      <p class="eyebrow">The scope of our work</p>
+      <div>
+        <h2>{service.eyebrow}</h2>
+        <p>{service.intro}</p>
+        <ul class="scope-list">
+          {service.scope.map((scope) => (
+            <li>
+              <Icon name="check" />
+              {scope}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+  <section class="section section--mist">
+    <div class="container">
+      <div class="section-heading" data-reveal>
+        <p class="eyebrow">Planning the work</p>
+        <h2>
+          Start with the
+          <br />
+          right conversation.
+        </h2>
+      </div>
+      <div class="consideration-grid">
+        {service.considerations.map((item, i) => (
+          <div class="consideration-item" data-reveal>
+            <p class="eyebrow">0{i + 1}</p>
+            <h3>{item.title}</h3>
+            <p>{item.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+  <Gallery ids={service.gallery} />
+  <section class="section section--mist">
+    <div class="container">
+      <div class="section-heading">
+        <p class="eyebrow">Work in focus</p>
+        <h2>Explore the detail.</h2>
+      </div>
+      <div class="work-grid">
+        {relevantWork.map((work) => (
+          <WorkCard work={work} />
+        ))}
+      </div>
+    </div>
+  </section>
+  <section class="section section--mist">
+    <div class="container faq-grid">
+      <div>
+        <p class="eyebrow">Before we get started</p>
+        <h2>
+          A few useful
+          <br />
+          answers.
+        </h2>
+      </div>
+      <div class="faq-list">
+        {service.questions.map((item) => (
+          <details>
+            <summary>
+              {item.question}
+              <Icon name="plus" />
+            </summary>
+            <p>{item.answer}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container">
+      <div class="section-heading">
+        <p class="eyebrow">Connected capabilities</p>
+        <h2>Part of the bigger picture.</h2>
+      </div>
+      <div class="related-services">
+        {related.map((item) => (
+          <a class="related-service" href={`/services/${item.slug}/`}>
+            {item.shortTitle}
+            <Icon />
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+  <ContactBand />
+</Base>

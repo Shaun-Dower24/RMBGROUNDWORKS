@@ -1,0 +1,65 @@
+---
+import Icon from './Icon.astro';
+import { contacts } from '../data/site';
+interface Props {
+  overlay?: boolean;
+}
+const { overlay = false } = Astro.props;
+const path = Astro.url.pathname;
+const links = [
+  { label: 'Services', href: '/services/' },
+  { label: 'Our work', href: '/projects' },
+  { label: 'About us', href: '/about/' },
+  { label: 'Contact', href: '/contact/' },
+];
+---
+
+<header class:list={['site-header', { 'site-header--overlay': overlay }]} data-header>
+  <a href="/" class="brand" aria-label="RMB Groundworks home">
+    <img src="/media/logo.png" alt="RMB Groundworks Limited" width="480" height="528" />
+  </a>
+  <nav aria-label="Main navigation" class="desktop-nav">
+    {links.map((link) => (
+      <a
+        href={link.href}
+        aria-current={path.startsWith(link.href.replace(/\/$/, '')) ? 'page' : undefined}
+      >
+        {link.label}
+      </a>
+    ))}
+  </nav>
+  <div class="header-actions">
+    <a class="header-phone" href={contacts.phoneHref}>
+      {contacts.phone}
+    </a>
+    <a class="button button--small" href="/contact/">
+      Discuss your project <Icon />
+    </a>
+    <button
+      class="menu-toggle"
+      aria-label="Open menu"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      data-menu-toggle
+    >
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+</header>
+<div id="mobile-menu" class="mobile-menu" inert data-menu>
+  <nav aria-label="Mobile navigation">
+    {links.map((link, i) => (
+      <a href={link.href}>
+        <span>0{i + 1}</span>
+        {link.label}
+        <Icon />
+      </a>
+    ))}
+  </nav>
+  <div class="mobile-menu__contact">
+    <p class="eyebrow">Let's talk about your project</p>
+    <a href={contacts.phoneHref}>{contacts.phone}</a>
+    <a href={contacts.emailHref}>{contacts.email}</a>
+  </div>
+</div>

@@ -1,0 +1,19 @@
+---
+import Icon from './Icon.astro';
+interface Props {
+  title?: string;
+}
+const { title = 'Let’s get your project moving.' } = Astro.props;
+---
+
+<section class="contact-band" aria-labelledby="contact-band-title">
+  <div class="container contact-band__inner">
+    <div>
+      <p class="eyebrow">Your next project starts with a conversation</p>
+      <h2 id="contact-band-title">{title}</h2>
+    </div>
+    <a class="circle-link" href="/contact/" aria-label="Discuss your project">
+      <Icon />
+    </a>
+  </div>
+</section>
