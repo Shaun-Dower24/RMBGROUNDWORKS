@@ -20,7 +20,7 @@ const related = workStudies.filter((item) => item.slug !== work.slug).slice(0, 2
   description={work.summary}
   image={`/media/gallery/${work.image}-1280.webp`}
 >
-  <section class="page-heading container">
+  <section class="page-heading page-heading--work container">
     <nav class="breadcrumb" aria-label="Breadcrumb">
       <a href="/projects">Our work</a>
       <span>/</span>
@@ -46,7 +46,7 @@ const related = workStudies.filter((item) => item.slug !== work.slug).slice(0, 2
       </div>
     </div>
   </section>
-  <div class="page-image">
+  <div class="page-image page-image--work">
     <Media src={`gallery/${work.image}`} alt={work.imageAlt} eager sizes="100vw" />
   </div>
   <section class="section">

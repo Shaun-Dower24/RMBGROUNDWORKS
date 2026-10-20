@@ -4,6 +4,7 @@ import Base from '../../layouts/Base.astro';
 import Media from '../../components/Media.astro';
 import Icon from '../../components/Icon.astro';
 import ContactBand from '../../components/ContactBand.astro';
+import SplitHero from '../../components/SplitHero.astro';
 import { services } from '../../data/site';
 ---
 
@@ -11,23 +12,15 @@ import { services } from '../../data/site';
   title="Groundworks & Civil Engineering Services"
   description="Explore RMB's foundations, basement civil works, drainage, demolition, car parks and external works across Hertfordshire, London and the Home Counties."
 >
-  <section class="page-heading container">
-    <p class="eyebrow">Our services</p>
-    <h1>
-      The foundations.
-      <br />
-      The details. The finish.
-    </h1>
-    <div class="page-heading__bottom">
-      <p>
-        Groundworks and civil engineering from the first site works to the external finishes. Find
-        the right starting point for your project.
-      </p>
-      <a class="text-link" href="/contact/">
-        Discuss your scope <Icon />
-      </a>
-    </div>
-  </section>
+  <SplitHero
+    eyebrow="Our services"
+    title="The foundations. The details. The finish"
+    description="Groundworks and civil engineering from the first site works to the external finishes. Find the right starting point for your project."
+    image="services/piling"
+    imageAlt="Reinforced ground beam trench prepared for concrete"
+    href="/contact/"
+    linkLabel="Discuss your scope"
+  />
   <section class="section section--mist">
     <div class="container service-index-list">
       {services.map((service, i) => (

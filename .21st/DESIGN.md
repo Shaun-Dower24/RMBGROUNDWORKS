@@ -8,4 +8,6 @@ Preserve the original RMB identity and use Infinity-inspired photographic scale,
 - Natural scroll, manual hero, restrained entrances, native image dialog and reduced motion.
 - Five service groups retain nine existing services. Six truthful visual work collections. No invented testimonials, credentials, statistics or named project outcomes.
 
-Sources: src/styles/global.css, docs/asset-register.md and the research checklist. The 21st context was initialized; catalog search required an unavailable sign-in, so no catalog code or metered generation was used. Approved decisions remain in design.json.
+Sources: src/styles/global.css, docs/asset-register.md and the research checklist. The 21st context was initialized; CLI catalog access requires sign-in. No catalog code or metered generation was used and no project context was uploaded.
+
+The supporting-page redesign adapts the public [Editorial Image Hero](https://21st.dev/@felipemenezes098/components/hero-07) and [Split Hero With Image Cards](https://21st.dev/@felipemenezes098/components/hero-08) references in native Astro. About uses a full-screen, top-anchored original photograph. Services use SplitHero.astro; the work index uses staggered photo columns, and contact keeps a concise editorial opening. Responsive choices follow the public [split-layout guide](https://21st.dev/blog/split-screen-layout-components): copy first on mobile and a minimum viewport height that can grow to fit content. Verification and tradeoffs are recorded in docs/hero-design.md.

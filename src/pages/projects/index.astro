@@ -3,6 +3,8 @@ export const prerender = true;
 import Base from '../../layouts/Base.astro';
 import WorkCard from '../../components/WorkCard.astro';
 import ContactBand from '../../components/ContactBand.astro';
+import Media from '../../components/Media.astro';
+import Icon from '../../components/Icon.astro';
 import { workStudies, categories } from '../../data/site';
 ---
 
@@ -10,21 +12,44 @@ import { workStudies, categories } from '../../data/site';
   title="Our Work — Groundworks in Focus"
   description="Explore original RMB Groundworks photography: foundations, basement civil works, drainage, car parks, block and beam floors and hard landscaping."
 >
-  <section class="page-heading container">
-    <p class="eyebrow">Our work</p>
-    <h1>
-      On site.
-      <br />
-      In the detail.
-    </h1>
-    <div class="page-heading__bottom">
+  <section class="work-hero container" aria-labelledby="work-title">
+    <div class="work-hero__copy">
+      <p class="eyebrow">Our work</p>
+      <h1 id="work-title">
+        On site.
+        <br />
+        In the detail<span class="red-dot">.</span>
+      </h1>
       <p>
         A closer look at the groundwork. Explore our original site photography, from excavation and
         reinforcement to drainage and finished external works.
       </p>
+      <a class="text-link" href="#work-collections">
+        Explore the collections <Icon name="down" />
+      </a>
+    </div>
+    <div class="work-hero__images">
+      <figure>
+        <Media
+          src="gallery/02"
+          alt="Reinforced concrete foundation with starter bars"
+          eager
+          sizes="(max-width: 900px) 50vw, 26vw"
+        />
+        <figcaption>Below the surface.</figcaption>
+      </figure>
+      <figure>
+        <Media
+          src="gallery/07"
+          alt="Completed car park with marked bays and an RMB van"
+          eager
+          sizes="(max-width: 900px) 50vw, 26vw"
+        />
+        <figcaption>Through to the finish.</figcaption>
+      </figure>
     </div>
   </section>
-  <section class="section section--mist" style="padding-top:35px">
+  <section id="work-collections" class="section section--mist" style="padding-top:35px">
     <div class="container">
       <div class="filter-bar" hidden data-filters>
         <div class="filters" role="group" aria-label="Filter work by service">

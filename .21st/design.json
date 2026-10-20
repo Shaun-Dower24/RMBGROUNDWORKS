@@ -3,17 +3,13 @@
   "project": {
     "name": "rmb-groundworks",
     "productType": null,
-    "stack": [
-      "astro"
-    ]
+    "stack": ["astro"]
   },
   "sources": {
-    "tokens": [],
-    "components": [],
+    "tokens": ["src/styles/global.css"],
+    "components": ["src/components/SplitHero.astro"],
     "assets": [],
-    "instructions": [
-      "CLAUDE.md"
-    ]
+    "instructions": ["CLAUDE.md"]
   },
   "design": {
     "colorMode": "light with dark sections",
@@ -48,7 +44,10 @@
     "Infinity reference informs photographic composition and editorial spacing.",
     "Natural scroll, manual hero and complete reduced-motion path.",
     "Truthful work collections; no unsupported case-study claims.",
-    "21st catalog search unavailable without sign-in; no library code imported."
+    "21st CLI catalog requires sign-in; public editorial-image and split-hero references inform the supporting-page redesign. No catalog code imported or project context uploaded.",
+    "About uses a full-viewport original photograph anchored to the top, with copy positioned away from the operatives on desktop.",
+    "Services use a shared split hero; the work index pairs copy with staggered original photographs; contact uses a shorter editorial introduction.",
+    "Work detail photographs retain their complete natural aspect ratio. Hero content can grow on short screens rather than being clipped."
   ],
   "evidence": [
     {
