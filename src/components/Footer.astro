@@ -1,61 +1,72 @@
 ---
 import Icon from './Icon.astro';
-import { contacts } from '../data/site';
+import { contacts, services } from '../data/site';
+import '../styles/endcap.css';
 ---
 
-<footer class="site-footer">
-  <div class="container footer-top">
-    <a class="footer-brand" href="/" aria-label="RMB Groundworks home">
+<footer class="site-footer site-footer--agency">
+  <div class="container agency-footer__opening">
+    <a class="agency-footer__brand" href="/" aria-label="RMB Groundworks home">
       <img src="/media/logo-white.svg" alt="RMB Groundworks Limited" width="92" height="101" />
     </a>
-    <div class="footer-message">
+    <div class="agency-footer__statement">
       <p class="eyebrow">Groundworks & civil engineering</p>
-      <p>
-        From the ground up.
-        <br />
-        Across the Home Counties.
+      <p>Built from the ground up.</p>
+      <p class="agency-footer__summary">
+        Groundworks, civil works and external spaces. Based in St Albans, working across the Home
+        Counties.
       </p>
     </div>
-    <a class="footer-back" href="#top" aria-label="Back to top">
+    <a class="agency-footer__back" href="#top" aria-label="Back to top">
       <Icon name="down" />
     </a>
   </div>
-  <div class="container footer-grid">
-    <div>
-      <p class="footer-label">Start a conversation</p>
-      <a class="footer-phone" href={contacts.phoneHref}>
+  <div class="container agency-footer__grid">
+    <nav class="agency-footer__column" aria-labelledby="footer-explore-title">
+      <h2 id="footer-explore-title" class="agency-footer__label">
+        Explore
+      </h2>
+      <a href="/">Home</a>
+      <a href="/about/">About RMB</a>
+      <a href="/projects/">Our work</a>
+      <a href="/contact/">Contact us</a>
+      <a href="/contact/?intent=tender">Tender enquiries</a>
+    </nav>
+    <nav class="agency-footer__column" aria-labelledby="footer-services-title">
+      <h2 id="footer-services-title" class="agency-footer__label">
+        Our services
+      </h2>
+      {services.map((service) => (
+        <a href={`/services/${service.slug}/`}>{service.shortTitle}</a>
+      ))}
+      <a class="agency-footer__overview" href="/services/">
+        View all services <Icon />
+      </a>
+    </nav>
+    <div class="agency-footer__column agency-footer__contact">
+      <h2 class="agency-footer__label">Start a conversation</h2>
+      <a class="agency-footer__phone" href={contacts.phoneHref}>
         {contacts.phone}
       </a>
-      <a class="footer-email" href={contacts.emailHref}>
-        {contacts.email} <Icon />
+      <a class="agency-footer__email" href={contacts.emailHref}>
+        {contacts.email}
       </a>
-      <p class="footer-hours">{contacts.hours}</p>
+      <p class="agency-footer__hours">{contacts.hours}</p>
     </div>
-    <div>
-      <p class="footer-label">Explore</p>
-      <a href="/services/">Our services</a>
-      <a href="/projects">Our work</a>
-      <a href="/about/">About RMB</a>
-      <a href="/contact/?intent=tender">Tender enquiries</a>
-    </div>
-    <div>
-      <p class="footer-label">Our base</p>
-      <p>
+    <div class="agency-footer__column agency-footer__location">
+      <h2 class="agency-footer__label">Our base & coverage</h2>
+      <address>
         {contacts.addressLines.map((line) => (
           <Fragment>
             {line}
             <br />
           </Fragment>
         ))}
-      </p>
-      <p class="footer-coverage">
-        Working across Hertfordshire,
-        <br />
-        London & the Home Counties.
-      </p>
+      </address>
+      <p class="agency-footer__coverage">Working across {contacts.coverage}.</p>
     </div>
   </div>
-  <div class="container footer-bottom">
+  <div class="container agency-footer__bottom">
     <p>© {new Date().getFullYear()} RMB Groundworks Limited</p>
     <a href="/privacy/">Privacy & cookies</a>
     <p>Built on solid ground.</p>

@@ -1,0 +1,44 @@
+---
+import { services } from '../data/site';
+import Media from './Media.astro';
+import Icon from './Icon.astro';
+import '../styles/services-accordion.css';
+---
+
+<div class="service-accordion" data-service-accordion>
+  {services.map((service, index) => (
+    <details class="service-accordion__item" name="rmb-services" open={index === 0}>
+      <summary class="service-accordion__summary">
+        <span class="service-accordion__number" aria-hidden="true">
+          {String(index + 1).padStart(2, '0')}
+        </span>
+        <h3 class="service-accordion__title">{service.title}</h3>
+        <span class="service-accordion__toggle" aria-hidden="true">
+          <Icon name="plus" />
+        </span>
+      </summary>
+
+      <div class="service-accordion__panel">
+        <div class="service-accordion__copy">
+          <p class="service-accordion__description">{service.description}</p>
+          <a
+            class="service-accordion__link"
+            href={`/services/${service.slug}/`}
+            aria-label={`Explore this service: ${service.title}`}
+          >
+            <span>Explore this service</span>
+            <Icon />
+          </a>
+        </div>
+        <div class="service-accordion__photo">
+          <Media
+            src={`services/${service.image}`}
+            alt={service.imageAlt}
+            class="service-accordion__image"
+            sizes="(max-width: 700px) 91vw, (max-width: 1100px) 50vw, 760px"
+          />
+        </div>
+      </div>
+    </details>
+  ))}
+</div>

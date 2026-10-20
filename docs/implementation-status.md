@@ -42,3 +42,7 @@ The approved Infinity-inspired animation checklist is implemented and published.
 The reported scroll flashing is corrected in release 8f8aeb7: explicit offscreen starting states and immediate row playback replace the deferred from-tween/global queue. A permanent continuous-scroll check passes on the published release (2,924 frames, 12 scenarios, no opacity/mask resets).
 
 Size-aware reveal starts are published in 0ab5ba0 so content is substantially in view before playback; regression tests now check first-play visibility alongside flashing.
+
+## Homepage refresh
+
+The approved six-section 21st.dev shortlist is implemented with original RMB assets and native Astro components. Split company introduction, manual photographic work gallery, native service media accordion, neutral process timeline, prominent enquiry/phone CTA and shared footer are included. No new dependencies. See [homepage-design.md](homepage-design.md) for source references, 47 homepage interaction/layout checks, 85 shared layout checks and frame-level animation evidence.

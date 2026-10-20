@@ -77,17 +77,47 @@ async (page) => {
         }
         sample();
       });
-      const height = await page.evaluate(() => document.body.scrollHeight);
+      let height = await page.evaluate(() => document.body.scrollHeight);
+      const homepage = path === '/' ? { accordionToggled: false, galleryCards: 0, galleryFailures: [] } : null;
+      const laterServiceSummary = homepage
+        ? page.locator('[data-service-accordion] details').nth(3).locator('summary')
+        : null;
       // Normal continuous wheel input; content must never become hidden after being seen.
       for (let y = 0; y < height; y += 200) {
         await page.mouse.wheel(0, 200);
         await page.waitForTimeout(65);
+        if (homepage && !homepage.accordionToggled) {
+          const summary = await laterServiceSummary.boundingBox();
+          if (summary && summary.y >= 0 && summary.y + summary.height <= (width === 390 ? 844 : 1000)) {
+            // Changing the open panel must refresh geometry before downstream reveals start.
+            await laterServiceSummary.click();
+            await page.waitForTimeout(80);
+            homepage.accordionToggled = await laterServiceSummary.evaluate((element) => element.parentElement.open);
+            height = await page.evaluate(() => document.body.scrollHeight);
+          }
+        }
       }
       await page.waitForTimeout(900);
       // Return up, then down again. Completed content must remain settled.
       for (let y = height; y > 0; y -= 700) {
         await page.mouse.wheel(0, -700);
         await page.waitForTimeout(35);
+      }
+      if (homepage) {
+        const track = page.locator('[data-home-work-track]');
+        await track.scrollIntoViewIfNeeded();
+        await page.waitForTimeout(650);
+        const cards = track.locator('[data-home-work-card]');
+        homepage.galleryCards = await cards.count();
+        for (let index = 0; index < homepage.galleryCards; index++) {
+          await cards.nth(index).evaluate((card) => card.scrollIntoView({ block: 'nearest', inline: 'center', behavior: 'instant' }));
+          await page.waitForTimeout(80);
+          const state = await cards.nth(index).evaluate((card) => ({
+            opacity: Number(getComputedStyle(card).opacity),
+            masks: card.querySelectorAll('[aria-hidden] > [aria-hidden]').length,
+          }));
+          if (state.opacity !== 1 || state.masks) homepage.galleryFailures.push({ index, ...state });
+        }
       }
       await page.evaluate(() => scrollTo({ top: document.body.scrollHeight, behavior: 'instant' }));
       await page.waitForTimeout(150);
@@ -101,10 +131,11 @@ async (page) => {
           overflow: document.documentElement.scrollWidth > innerWidth + 1,
         };
       });
-      results.push({ path, width, ...result });
+      results.push({ path, width, ...result, homepage });
     }
   }
-  const failures = results.filter((result) => result.regressions.length || result.earlyStarts.length || result.overflow);
+  const failures = results.filter((result) => result.regressions.length || result.earlyStarts.length || result.overflow ||
+    (result.homepage && (!result.homepage.accordionToggled || !result.homepage.galleryCards || result.homepage.galleryFailures.length)));
   if (failures.length || errors.length) throw new Error(JSON.stringify({ failures, errors }));
   return {
     scenarios: results.length,

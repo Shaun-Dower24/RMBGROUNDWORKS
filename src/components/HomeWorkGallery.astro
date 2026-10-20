@@ -1,0 +1,134 @@
+---
+import Icon from './Icon.astro';
+import Media from './Media.astro';
+import type { WorkStudy } from '../data/site';
+interface Props {
+  works: WorkStudy[];
+}
+const { works } = Astro.props;
+---
+
+<div class="home-work" data-home-work-gallery>
+  <div class="home-work__frame" data-reveal>
+    <ul
+      class="home-work__track"
+      data-home-work-track
+      tabindex="0"
+      aria-label="Selected work collections. Scroll horizontally to explore."
+    >
+      {works.map((work) => (
+        <li class="home-work__card" data-home-work-card>
+          <a href={`/projects/${work.slug}/`}>
+            <Media
+              src={`gallery/${work.image}`}
+              alt={work.imageAlt}
+              sizes="(max-width: 600px) 80vw, (max-width: 1000px) 45vw, 30vw"
+            />
+            <div class="home-work__caption">
+              <p class="eyebrow">{work.category}</p>
+              <div class="home-work__title">
+                <h3>{work.title}</h3>
+                <span class="home-work__arrow">
+                  <Icon />
+                </span>
+              </div>
+              <p class="home-work__summary">{work.summary}</p>
+            </div>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+  <div class="home-work__bottom">
+    <a class="text-link" href="/projects/">
+      Explore all our work <Icon />
+    </a>
+    <div class="home-work__controls" data-home-work-controls hidden>
+      <span class="home-work__count" data-home-work-count aria-hidden="true"></span>
+      <span class="sr-only" data-home-work-status role="status" aria-live="polite"></span>
+      <button type="button" data-home-work-prev aria-label="Previous work collections">
+        <Icon name="left" />
+      </button>
+      <button type="button" data-home-work-next aria-label="Next work collections">
+        <Icon name="right" />
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const gallery = document.querySelector<HTMLElement>('[data-home-work-gallery]');
+  if (gallery) {
+    const track = gallery.querySelector<HTMLElement>('[data-home-work-track]')!;
+    const cards = [...track.querySelectorAll<HTMLElement>('[data-home-work-card]')];
+    const previous = gallery.querySelector<HTMLButtonElement>('[data-home-work-prev]')!;
+    const next = gallery.querySelector<HTMLButtonElement>('[data-home-work-next]')!;
+    const count = gallery.querySelector<HTMLElement>('[data-home-work-count]')!;
+    const status = gallery.querySelector<HTMLElement>('[data-home-work-status]')!;
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)');
+    let frame = 0;
+    let latestMessage = '';
+    let announcementTimer: ReturnType<typeof setTimeout>;
+    const announce = () => {
+      if (status.textContent !== latestMessage) status.textContent = latestMessage;
+    };
+    const update = () => {
+      const bounds = track.getBoundingClientRect();
+      const visible = cards.flatMap((card, index) => {
+        const rect = card.getBoundingClientRect();
+        const overlap = Math.max(
+          0,
+          Math.min(rect.right, bounds.right) - Math.max(rect.left, bounds.left),
+        );
+        return overlap >= rect.width * 0.6 ? [index] : [];
+      });
+      const first = visible[0] ?? 0;
+      const last = visible.at(-1) ?? first;
+      count.textContent = `${String(first + 1).padStart(2, '0')}${last > first ? `–${String(last + 1).padStart(2, '0')}` : ''} / ${String(cards.length).padStart(2, '0')}`;
+      latestMessage = `Showing work collection${last > first ? 's' : ''} ${first + 1}${last > first ? ` to ${last + 1}` : ''} of ${cards.length}`;
+      previous.disabled = track.scrollLeft <= 2;
+      next.disabled = track.scrollLeft >= track.scrollWidth - track.clientWidth - 2;
+      frame = 0;
+    };
+    const schedule = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+      clearTimeout(announcementTimer);
+      announcementTimer = setTimeout(announce, 180);
+    };
+    const move = (direction: number) => {
+      const step =
+        cards[0].getBoundingClientRect().width + parseFloat(getComputedStyle(track).columnGap);
+      track.scrollBy({ left: direction * step, behavior: reduce.matches ? 'instant' : 'smooth' });
+    };
+    previous.addEventListener('click', () => move(-1));
+    next.addEventListener('click', () => move(1));
+    track.addEventListener('focusin', (event) => {
+      const card = (event.target as Element).closest<HTMLElement>('[data-home-work-card]');
+      if (!card) return;
+      const bounds = track.getBoundingClientRect();
+      const rect = card.getBoundingClientRect();
+      if (rect.left < bounds.left - 1 || rect.right > bounds.right + 1)
+        track.scrollBy({ left: rect.left - bounds.left, behavior: 'instant' });
+    });
+    track.addEventListener('keydown', (event) => {
+      if (event.target !== track) return;
+      if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+        event.preventDefault();
+        move(event.key === 'ArrowRight' ? 1 : -1);
+      }
+      if (event.key === 'Home' || event.key === 'End') {
+        event.preventDefault();
+        track.scrollTo({ left: event.key === 'Home' ? 0 : track.scrollWidth, behavior: 'instant' });
+      }
+    });
+    track.addEventListener('scroll', schedule, { passive: true });
+    track.addEventListener('scrollend', () => {
+      update();
+      announce();
+    });
+    new ResizeObserver(schedule).observe(track);
+    gallery.querySelector<HTMLElement>('[data-home-work-controls]')!.hidden = false;
+    update();
+    announce();
+  }
+</script>

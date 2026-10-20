@@ -1,0 +1,196 @@
+.service-accordion {
+  --service-rule: #ffffff30;
+  --service-summary-gap: clamp(20px, 2.5vw, 38px);
+  --service-number-width: 44px;
+  border-top: 1px solid var(--service-rule);
+}
+
+.service-accordion__item {
+  border-bottom: 1px solid var(--service-rule);
+}
+
+.service-accordion__summary {
+  display: grid;
+  grid-template-columns: var(--service-number-width) minmax(0, 1fr) 48px;
+  align-items: center;
+  gap: var(--service-summary-gap);
+  min-height: 112px;
+  padding-block: 28px;
+  color: var(--paper);
+  cursor: pointer;
+  list-style: none;
+  touch-action: manipulation;
+}
+
+.service-accordion__summary::-webkit-details-marker {
+  display: none;
+}
+
+.service-accordion__summary::marker {
+  content: '';
+}
+
+.service-accordion__summary:focus-visible {
+  outline: 2px solid var(--paper);
+  outline-offset: 5px;
+}
+
+.service-accordion__number {
+  color: #92928f;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.08em;
+}
+
+.service-accordion__title {
+  min-width: 0;
+  font-size: clamp(23px, 2.7vw, 38px);
+  line-height: 1.25;
+  overflow-wrap: break-word;
+}
+
+.service-accordion__toggle {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border: 1px solid #ffffff55;
+  border-radius: 50%;
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease;
+}
+
+.service-accordion__toggle svg {
+  width: 21px;
+  height: 21px;
+  transition: transform 180ms ease;
+}
+
+.service-accordion__item[open] .service-accordion__number {
+  color: #ff777d;
+}
+
+.service-accordion__item[open] .service-accordion__toggle {
+  border-color: var(--action);
+  background: var(--action);
+}
+
+.service-accordion__item[open] .service-accordion__toggle svg {
+  transform: rotate(45deg);
+}
+
+.service-accordion__panel {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  align-items: start;
+  gap: clamp(36px, 6vw, 88px);
+  margin-left: calc(var(--service-number-width) + var(--service-summary-gap));
+  padding: 4px 0 clamp(36px, 4vw, 64px);
+}
+
+.service-accordion__copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-top: 3px;
+}
+
+.service-accordion .service-accordion__description {
+  max-width: 40ch;
+  color: #c6c6c3;
+  font-size: clamp(14px, 1.1vw, 16px);
+  line-height: 1.8;
+}
+
+.service-accordion__link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  min-height: 44px;
+  margin-top: clamp(24px, 3vw, 40px);
+  border-bottom: 1px solid #ffffff55;
+  color: var(--paper);
+  font-size: 13px;
+  font-weight: 500;
+  transition: border-color 180ms ease;
+}
+
+.service-accordion__link svg {
+  width: 18px;
+  height: 18px;
+}
+
+.service-accordion__link:focus-visible {
+  outline-color: var(--paper);
+}
+
+.service-accordion__photo {
+  min-width: 0;
+  background: #272727;
+}
+
+.service-accordion__image {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  object-position: 50% 50%;
+}
+
+@media (hover: hover) {
+  .service-accordion__summary:hover .service-accordion__toggle {
+    border-color: var(--red);
+    background-color: var(--action);
+  }
+
+  .service-accordion__link:hover {
+    border-color: var(--paper);
+  }
+}
+
+@media (max-width: 700px) {
+  .service-accordion {
+    --service-summary-gap: 14px;
+    --service-number-width: 24px;
+  }
+
+  .service-accordion__summary {
+    grid-template-columns: var(--service-number-width) minmax(0, 1fr) 44px;
+    min-height: 104px;
+    padding-block: 24px;
+  }
+
+  .service-accordion__title {
+    font-size: clamp(21px, 4.7vw, 28px);
+  }
+
+  .service-accordion__toggle {
+    width: 44px;
+    height: 44px;
+  }
+
+  .service-accordion__panel {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 28px;
+    margin-left: 0;
+    padding-top: 0;
+  }
+
+  .service-accordion .service-accordion__description {
+    max-width: 55ch;
+  }
+
+  .service-accordion__link {
+    margin-top: 20px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .service-accordion__toggle,
+  .service-accordion__toggle svg,
+  .service-accordion__link {
+    transition: none;
+  }
+}

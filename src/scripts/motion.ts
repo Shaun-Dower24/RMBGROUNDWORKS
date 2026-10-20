@@ -233,6 +233,20 @@ document.addEventListener('rmb:filter', () => {
     .forEach(finish);
   ScrollTrigger.refresh();
 });
+let accordionRefreshFrame = 0;
+document.querySelectorAll('[data-service-accordion]').forEach((accordion) => {
+  accordion.addEventListener(
+    'toggle',
+    (event) => {
+      if (!(event.target instanceof HTMLDetailsElement) || accordionRefreshFrame) return;
+      accordionRefreshFrame = requestAnimationFrame(() => {
+        accordionRefreshFrame = 0;
+        ScrollTrigger.refresh();
+      });
+    },
+    true,
+  );
+});
 window.addEventListener('pagehide', settleAll);
 window.addEventListener('pageshow', (event) => {
   if (event.persisted) settleAll();

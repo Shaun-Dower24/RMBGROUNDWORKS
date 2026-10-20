@@ -3,9 +3,11 @@ export const prerender = true;
 import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
 import Media from '../components/Media.astro';
-import WorkCard from '../components/WorkCard.astro';
+import HomeWorkGallery from '../components/HomeWorkGallery.astro';
+import ServiceAccordion from '../components/ServiceAccordion.astro';
 import ContactBand from '../components/ContactBand.astro';
-import { services, workStudies, process as stages } from '../data/site';
+import { workStudies, process as stages } from '../data/site';
+import '../styles/homepage.css';
 const featured = [workStudies[0], workStudies[3], workStudies[1], workStudies[5]];
 const heroSlides = [
   {
@@ -94,38 +96,36 @@ const heroSlides = [
     </div>
   </div>
   <section id="about" class="section">
-    <div class="container">
-      <div class="intro-grid">
+    <div class="container home-intro">
+      <div class="home-intro__copy">
         <p class="eyebrow">A foundation for your project</p>
-        <div>
-          <h2 data-motion="text">
-            Practical expertise.
-            <br />
-            At every level.
-          </h2>
-          <div class="intro-grid__copy">
-            <p>
-              From the first excavation to the external finishes, RMB Groundworks brings together
-              the groundworks and civil engineering behind a build.
-            </p>
-            <p>
-              Based in St Albans, we work with developers, main contractors, commercial property
-              managers and public sector clients across Hertfordshire, London and the Home Counties.
-            </p>
-          </div>
-          <a class="text-link" href="/about/">
-            Get to know RMB <Icon />
-          </a>
+        <h2 data-motion="text">
+          Practical expertise.
+          <br />
+          At every level.
+        </h2>
+        <div class="home-intro__body">
+          <p>
+            From the first excavation to the external finishes, RMB Groundworks brings together the
+            groundworks and civil engineering behind a build.
+          </p>
+          <p>
+            Based in St Albans, we work with developers, main contractors, commercial property
+            managers and public sector clients across Hertfordshire, London and the Home Counties.
+          </p>
         </div>
+        <a class="text-link" href="/about/">
+          Get to know RMB <Icon />
+        </a>
       </div>
-      <div class="intro-image" data-motion="image">
+      <figure class="home-intro__image" data-motion="image">
         <Media
           src="about"
           alt="RMB operative finishing a concrete retaining wall on site"
-          sizes="90vw"
+          sizes="(max-width: 768px) 90vw, 45vw"
         />
-        <span class="intro-image__label">Real people. Real groundwork.</span>
-      </div>
+        <figcaption>Real people. Real groundwork.</figcaption>
+      </figure>
     </div>
   </section>
   <section class="section section--mist">
@@ -138,16 +138,7 @@ const heroSlides = [
           in focus.
         </h2>
       </div>
-      <div class="work-grid">
-        {featured.map((work) => (
-          <WorkCard work={work} />
-        ))}
-      </div>
-      <div class="works-footer">
-        <a class="text-link" href="/projects">
-          Explore all our work <Icon />
-        </a>
-      </div>
+      <HomeWorkGallery works={featured} />
     </div>
   </section>
   <section id="services" class="section dark-section">
@@ -160,19 +151,7 @@ const heroSlides = [
           behind your project.
         </h2>
       </div>
-      <div>
-        {services.map((service, i) => (
-          <a class="service-row" href={`/services/${service.slug}/`} data-reveal>
-            <span class="motion-rule" data-motion="rule" aria-hidden="true"></span>
-            <span class="service-row__number">0{i + 1}</span>
-            <h3>{service.shortTitle}</h3>
-            <p>{service.description}</p>
-            <span class="service-row__arrow">
-              <Icon />
-            </span>
-          </a>
-        ))}
-      </div>
+      <ServiceAccordion />
       <a class="text-link" href="/services/">
         Explore our services <Icon />
       </a>
@@ -180,8 +159,8 @@ const heroSlides = [
   </section>
   <section class="section">
     <div class="container">
-      <div class="process-grid">
-        <div class="process-grid__heading">
+      <div class="home-process">
+        <div class="home-process__heading">
           <p class="eyebrow">How we work</p>
           <h2 data-motion="text">
             A clear process.
@@ -193,11 +172,12 @@ const heroSlides = [
             practicalities of the site, then work through the next steps together.
           </p>
         </div>
-        <ol class="process-list">
+        <ol class="home-process__list">
           {stages.map((stage, i) => (
-            <li data-reveal>
-              <span class="motion-rule" data-motion="rule" aria-hidden="true"></span>
-              <span class="process-list__number">0{i + 1}</span>
+            <li class="home-process__step" data-reveal>
+              <span class="home-process__number" aria-hidden="true">
+                0{i + 1}
+              </span>
               <div>
                 <h3>{stage.title}</h3>
                 <p>{stage.body}</p>
@@ -219,6 +199,6 @@ const heroSlides = [
     </div>
   </section>
   <div id="quote">
-    <ContactBand />
+    <ContactBand prominent />
   </div>
 </Base>

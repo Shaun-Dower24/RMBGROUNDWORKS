@@ -17,3 +17,5 @@
 - User-reported flashing reproduced as eight visible-to-hidden resets. Fixed deferred from-tweens/global queue in 8f8aeb7; ready Netlify deployment 6ad7c9a8d47111418290fffa. Saved frame-level browser regression: 2,930 local / 2,924 live frames, 12 scenarios each, zero resets. Settled screenshots alone did not catch the original defect.
 
 - Later animation starts requested: 0ab5ba0 published in ready deployment 6ad7ccacf15425f5b390fe7f. Trigger inset uses half element height bounded to 30–45% of viewport, with page-range clamping. Local 12 scenarios/141 starts: no early starts or flashing; live 28 starts confirm later timing.
+
+- Approved homepage shortlist implemented: split intro, manual gallery, five-service native media accordion, neutral process timeline, prominent CTA and shared footer. Local 47 homepage checks, 85 route/width checks, 17 axe samples (zero violations) and 12 frame-level scenarios passed; no animation regressions across 3,187 sampled frames. Details: docs/homepage-design.md.

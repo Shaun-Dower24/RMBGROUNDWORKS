@@ -61,7 +61,9 @@
     "About uses a full-viewport original photograph anchored to the top, with copy positioned away from the operatives on desktop.",
     "Services use a shared split hero; the work index pairs copy with staggered original photographs; contact uses a shorter editorial introduction.",
     "Work detail photographs retain their complete natural aspect ratio. Hero content can grow on short screens rather than being clipped.",
-    "Infinity-derived scroll choreography; CSS owns immediate hero/session/navigation sequences so late modules cannot hide an already-visible heading. GSAP is downloaded only on eligible motion pages."
+    "Infinity-derived scroll choreography; CSS owns immediate hero/session/navigation sequences so late modules cannot hide an already-visible heading. GSAP is downloaded only on eligible motion pages.",
+    "Approved six-section homepage shortlist implemented in native Astro: split content, manual image-card gallery, native media accordion, five neutral process stages, enquiry/telephone CTA and shared agency footer. Original RMB assets and truthful content retained; no React or catalog source imported.",
+    "Horizontal gallery cards and accordion panels stay static; one gallery frame shares the existing reveal owner. Native service toggles coalesce a geometry refresh without resetting reveals. Keyboard focus exposes whole cards and status announcements wait for settled scrolling."
   ],
   "evidence": [
     {
