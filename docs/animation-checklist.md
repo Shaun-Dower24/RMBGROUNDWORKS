@@ -56,7 +56,7 @@ These are proposed RMB timings, not measurements of Infinity's exact easing or d
 - [x] Trigger below-fold groups near the lower viewport edge, normally when their top reaches about 85% of the viewport. Use small groups so long sections cannot become impossible to trigger.
 - [x] Play reveals once per document visit; keep completed content visible when scrolling back up.
 - [x] Keep already-visible content settled if motion initializes late. Never hide a readable section merely to replay its entrance.
-- [x] Limit simultaneous motion to one main sequence and one supporting accent. Cap a card-row stagger at 160ms.
+- [x] Start each local row immediately on viewport entry; never queue readable content behind unrelated sequences. Cap a card-row stagger at 160ms.
 - [x] Do not pin sections, force horizontal scrolling, replace the scroll engine or add continuous parallax in this pass.
 - [x] Keep original image dimensions and final crop positions. Do not apply wipe/zoom movement to the About hero photograph.
 

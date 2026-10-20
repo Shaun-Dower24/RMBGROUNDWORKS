@@ -5,7 +5,7 @@ Implemented 20 October 2026 after the user's “Implement plan.” instruction. 
 ## Final behaviour
 
 - Selected below-fold headings rise through line masks with up to 1.25° rotation on desktop. SplitText provides hidden visual copies and a complete readable label; explicit line breaks become spaces in that label. Completed splits revert to the original markup.
-- Ordinary groups rise 16px on desktop/8px on mobile. Visual rows share a sequence with a 120ms total stagger. One content sequence and one supporting photo/rule sequence run at a time. Fast-passed groups, focused targets, anchors and filtered work cards settle immediately.
+- Ordinary groups rise 16px on desktop/8px on mobile. Visual rows share a sequence with a 120ms total stagger. Each visual row starts as soon as it reaches its viewport trigger; there is no global playback queue. Fast-passed groups, focused targets, anchors and filtered work cards settle immediately.
 - Home/About body photographs wipe inside their existing frames with restrained counter-motion and a maximum 1.04 image scale. Mobile uses opacity only. Hero photographs and natural work-detail aspect ratios remain intact.
 - Service/process separators draw horizontally. The original manual slideshow, links, filters, native gallery, disclosures and enquiry controls retain their behaviour.
 - The original RMB mark and red rule appear on charcoal for 1.2s desktop/.95s mobile on the first eligible tab-session entry. A versioned sessionStorage seen flag is written before playback. Direct contact/privacy/404/hash entries, reduced motion, hidden entry and unavailable storage bypass the cover. No cookies, backend sessions, progress claims, scrolling locks or focus traps are added. The cover never intercepts input; input dismisses it without cancelling the underlying action. CSS exit and a separate 1.5s cleanup work independently of GSAP.
@@ -28,7 +28,7 @@ Real Safari/iOS hardware, full browser-restart tab restoration and an assistive-
 
 ## Bundle and operational impact
 
-GSAP is pinned to 3.15.0. Production client files total **131,207 bytes raw / 51,264 gzip**: shared interaction script 5,706/2,035, conditional import wrapper 1,932/1,013, optional GSAP/reveal chunk 123,569/48,216. The previously inspected client baseline was 6,271/2,221. The sizeable optional chunk is the cost of the approved GSAP/ScrollTrigger/SplitText approach; contact and initially reduced-motion documents avoid its request. Gzip figures are locally compressed file sizes, not a claim about CDN transfer encoding.
+GSAP is pinned to 3.15.0. Production client files total **131,117 bytes raw / 51,211 gzip**: shared interaction script 5,706/2,035, conditional import wrapper 1,932/1,013, optional GSAP/reveal chunk 123,479/48,163. The previously inspected client baseline was 6,271/2,221. The sizeable optional chunk is the cost of the approved GSAP/ScrollTrigger/SplitText approach; contact and initially reduced-motion documents avoid its request. Gzip figures are locally compressed file sizes, not a claim about CDN transfer encoding.
 
 The npm audit remains at the existing 13 high development-tool findings documented in dependency-audit.md. No backend, SMTP, tracking, domain or indexing settings were changed for animation. The Netlify review site retains noindex and its honest missing-mail fallback.
 
@@ -41,3 +41,14 @@ The full 44-case/observation protocol suite passed against production in Chromiu
 A single illustrative Chromium run at 4× CPU slowdown, 120ms network latency and 200kB/s download sampled the previous immutable About release and the new first/seen sessions. Observed CLS was approximately 0.0004 before and 0.0051 after; headings remained readable, the cover cleared and no horizontal overflow appeared. The new runs recorded three tasks over 50ms versus zero in that previous sample. The optional 48kB-gzip GSAP chunk and Netlify's injected badge script contribute extra work; conditional loading limits that cost on essential/reduced-motion routes. This is not a controlled benchmark or field-performance claim: CDN/cache/injection conditions differ, and an intro can also change the element counted as LCP. No speed-improvement claim is made.
 
 Review artifacts saved in the task outputs: `rmb-motion-preview.webm` (13.4 seconds), `rmb-session-intro-live.png`, `rmb-motion-about-desktop.png` and `rmb-motion-about-mobile.png`. Desktop/mobile captures and a frame from the recording were visually reviewed. The existing pull request was updated; it remains open and unmerged.
+
+
+## Scroll-flashing correction
+
+The user's report revealed a defect the original settled-state checks missed. A continuous-wheel trace of the published About page captured **eight visible-to-transparent opacity resets**: paused `from()` tweens deferred their initial hidden state until playback, and the global queue could start them after content was already readable.
+
+The correction sets initial states synchronously while targets are still below the viewport, then uses explicit forward `to()` animations. Each row starts on entry without waiting for unrelated animations. Natural completion no longer seeks its own tween from inside the completion callback. Line preparation waits for fonts; already-reached content remains static. Intro and page-transition behaviour is unchanged.
+
+A permanent Playwright CLI regression check is saved at `tests/browser/scroll-motion.mjs`. It samples actual frames during normal wheel scrolling, upward return and another downward pass, checking for opacity/mask regressions rather than only final visibility. The local fix passed **12 scenarios across six templates at 1440/390px, 2,930 sampled frames, zero regressions and zero runtime errors**. Firefox About sampling also reported zero resets. Reduced-motion changes, anchors, filters and resize cleanup pass. Astro diagnostics and production build pass.
+
+These results supersede the earlier implication that settled screenshots alone established smooth scrolling. The corrected release and live trace will be recorded after publication.

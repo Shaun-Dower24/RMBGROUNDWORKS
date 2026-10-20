@@ -46,3 +46,16 @@ The initial Netlify publication is a review site with search indexing disabled. 
 5. Repeat responsive, keyboard, reduced-motion, enquiry delivery and domain smoke checks. The included privacy text requires owner review against the actual host/mail arrangements.
 
 No analytics or third-party feed is installed. Mail acceptance is distinct from delivery and a submitted enquiry is distinct from a qualified lead. In-memory spam limits apply per Function instance; see the setup guide. Production/local forwarded-host patterns are explicit. Netlify's `URL`, `DEPLOY_URL` and `DEPLOY_PRIME_URL` supply exact deployment hostnames during its build; `PREVIEW_HOST` supports an additional exact HTTPS test host. Canonicals retain the intended RMB domain, while social images use the Netlify site URL supplied during the build.
+
+
+## Scroll-animation regression check
+
+With the site running locally, use the browser check in addition to diagnostics/build. It inspects animation frames and fails on visible-to-hidden resets:
+
+```sh
+npx --yes --package @playwright/cli playwright-cli -s=motion open http://127.0.0.1:4321/about/
+npx --yes --package @playwright/cli playwright-cli -s=motion run-code --filename=tests/browser/scroll-motion.mjs --raw
+npx --yes --package @playwright/cli playwright-cli -s=motion close
+```
+
+The script uses the opened page's origin, so the same check can verify a deployed release. See docs/motion-verification.md for the defect reproduction and fix evidence.

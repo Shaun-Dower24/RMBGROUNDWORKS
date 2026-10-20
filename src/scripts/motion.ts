@@ -10,43 +10,30 @@ type Reveal = {
   animation: gsap.core.Animation;
   split?: SplitText;
   trigger?: ScrollTrigger;
-  accent: boolean;
   complete: boolean;
 };
 
 const reveals: Reveal[] = [];
-const queue: Reveal[] = [];
-const active = new Set<Reveal>();
 let stopped =
   (performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming | undefined)
     ?.type === 'back_forward';
 
-function finish(reveal: Reveal) {
+// Completion never seeks/restarts a tween while its completion callback is running.
+function complete(reveal: Reveal) {
   if (reveal.complete) return;
   reveal.complete = true;
   reveal.trigger?.kill();
-  reveal.animation.progress(1).kill();
+  reveal.animation.kill();
   reveal.split?.revert();
   reveal.elements.forEach((element) => {
     element.dataset.motionDone = 'true';
   });
-  active.delete(reveal);
-  const index = queue.indexOf(reveal);
-  if (index >= 0) queue.splice(index, 1);
-  drain();
 }
 
-function drain() {
-  if (stopped) return;
-  for (const reveal of [...queue]) {
-    if (reveal.element.getBoundingClientRect().bottom < 0) {
-      finish(reveal);
-    } else if (![...active].some((item) => item.accent === reveal.accent)) {
-      queue.splice(queue.indexOf(reveal), 1);
-      active.add(reveal);
-      reveal.animation.play();
-    }
-  }
+function finish(reveal: Reveal) {
+  if (reveal.complete) return;
+  reveal.animation.progress(1, true);
+  complete(reveal);
 }
 
 function settleAll() {
@@ -54,6 +41,8 @@ function settleAll() {
   reveals.forEach(finish);
 }
 
+// Prepare line geometry once fonts settle; content reached before then stays static.
+await document.fonts.ready;
 const media = gsap.matchMedia();
 try {
   media.add(
@@ -103,7 +92,6 @@ try {
         const reveal = {
           element,
           elements,
-          accent: kind === 'rule' || kind === 'image',
           complete: false,
         } as Reveal;
         let animation: gsap.core.Animation;
@@ -119,15 +107,19 @@ try {
             onSplit(self) {
               element.setAttribute('aria-label', label);
               // Auto-split transfers progress on font/width changes, including a completed reveal.
-              const tween = gsap.from(self.lines, {
+              gsap.set(self.lines, {
                 yPercent: 105,
                 rotation: desktop ? 1.25 : 0,
                 transformOrigin: 'left bottom',
+              });
+              const tween = gsap.to(self.lines, {
+                yPercent: 0,
+                rotation: 0,
                 duration: desktop ? 0.72 : 0.48,
                 stagger: { amount: 0.14 },
                 ease: 'power3.out',
                 paused: true,
-                onComplete: () => finish(reveal),
+                onComplete: () => complete(reveal),
               });
               reveal.animation = tween;
               return tween;
@@ -136,26 +128,34 @@ try {
           animation = reveal.animation;
         } else if (kind === 'image' && desktop) {
           const image = element.querySelector('img');
-          const timeline = gsap.timeline({ paused: true, onComplete: () => finish(reveal) });
-          timeline.from(element, {
-            clipPath: 'inset(0 100% 0 0)',
-            x: 16,
+          const timeline = gsap.timeline({ paused: true, onComplete: () => complete(reveal) });
+          gsap.set(element, { clipPath: 'inset(0 100% 0 0)', x: 16 });
+          if (image) gsap.set(image, { x: -16, scale: 1.04 });
+          timeline.to(element, {
+            clipPath: 'inset(0 0% 0 0)',
+            x: 0,
             duration: 0.8,
             ease: 'power3.out',
             clearProps: 'clipPath,transform',
           });
           if (image)
-            timeline.from(
+            timeline.to(
               image,
-              { x: -16, scale: 1.04, duration: 0.8, ease: 'power3.out', clearProps: 'transform' },
+              { x: 0, scale: 1, duration: 0.8, ease: 'power3.out', clearProps: 'transform' },
               0,
             );
           animation = timeline;
         } else {
-          animation = gsap.from(elements, {
-            ...(kind === 'rule'
+          // Set the hidden state now, while offscreen. A paused from() tween can
+          // otherwise defer that reset until playback, flashing already-readable content.
+          gsap.set(
+            elements,
+            kind === 'rule'
               ? { scaleX: 0, transformOrigin: 'left center' }
-              : { opacity: 0, y: kind === 'image' ? 0 : desktop ? 16 : 8 }),
+              : { opacity: 0, y: kind === 'image' ? 0 : desktop ? 16 : 8 },
+          );
+          animation = gsap.to(elements, {
+            ...(kind === 'rule' ? { scaleX: 1 } : { opacity: 1, y: 0 }),
             duration:
               kind === 'rule'
                 ? desktop
@@ -170,7 +170,7 @@ try {
             stagger: elements.length > 1 ? { amount: 0.12 } : 0,
             paused: true,
             clearProps: 'opacity,transform',
-            onComplete: () => finish(reveal),
+            onComplete: () => complete(reveal),
           });
         }
         reveal.animation = animation;
@@ -180,10 +180,7 @@ try {
           start: 'top 85%',
           end: 'bottom top',
           onEnter: () => {
-            if (!reveal.complete && !queue.includes(reveal)) {
-              queue.push(reveal);
-              drain();
-            }
+            if (!reveal.complete) reveal.animation.play();
           },
           onLeave: () => finish(reveal),
         });
