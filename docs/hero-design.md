@@ -4,7 +4,7 @@ Updated 20 October 2026 in response to the request to fix the cropped About phot
 
 ## Visual decisions
 
-- **About:** replace the large white introduction and cropped image strip with one full-viewport photographic hero. Keep the original gallery03 image, anchor its top edge, put desktop copy on the right away from the operatives, and use a portrait focal point on phones. A minimum dynamic viewport height fills the screen; short landscape screens grow to fit text and controls.
+- **About:** replace the large white introduction and cropped image strip with one full-viewport photographic hero. Keep the original gallery03 image, anchor its top edge, put desktop copy on the right away from the operatives, and use a portrait focal point on phones. A minimum dynamic viewport height fills the screen; short landscape screens grow to fit text and controls. Bottom spacing keeps the scroll link clear of Netlify's floating badge.
 - **Services:** a shared `SplitHero.astro` pairs the message and enquiry action with original service photography. Desktop uses two columns; mobile reads copy first, then the image. Breadcrumbs and service-specific enquiry links are retained.
 - **Our work:** a staggered pair of original photographs previews substructure and external works beside the introduction. The collection action links to the existing filter/gallery section.
 - **Work details:** tighter editorial titles and photos shown at their natural aspect ratio prevent the previous strip from cutting the photographs. Gallery controls remain unchanged.
@@ -21,11 +21,12 @@ These are adapted design references, not copied React components. Existing Astro
 ## Verification
 
 - Astro diagnostics: 27 files, 0 errors, warnings or hints.
-- 17 routes at 320,390,768,1024 and1440px: 85 checks, no horizontal overflow, one main landmark and one h1 per route.
-- About hero and photo both start at y0 and fill the viewport at all five widths; the h1 stays below the fixed header. Photo vertical position remains0%. On an844×390 landscape viewport the section expands to608px to keep its content visible.
-- 14 WCAG-tagged axe samples across seven changed routes at390/1440px: 0 violations. Image-overlay contrast was marked incomplete on About/services and reviewed manually in captures; this is not a complete WCAG audit.
+- 17 routes at 320, 390, 768, 1024 and 1440px: 85 checks, no horizontal overflow, one main landmark and one h1 per route.
+- About hero and photo both start at y0 and fill the viewport at all five widths; the h1 stays below the fixed header. Photo vertical position remains 0%. On a short 844×390 landscape viewport the section expands to keep its content visible.
+- 14 WCAG-tagged axe samples across seven changed routes at 390/1440px: 0 violations. Image-overlay contrast was marked incomplete on About/services and reviewed manually in captures; this is not a complete WCAG audit.
 - About mobile menu opens/closes with Escape; reduced motion retains visible content; no runtime JavaScript errors during the audit.
 - Desktop/mobile About, services, work and contact screenshots plus the short landscape layout were visually reviewed.
-- `21st review` ran offline with deterministic local rules: 0 errors,0 warnings,75 informational hardcoded-colour suggestions across the stylesheet. It reviewed CSS, not Astro markup. Token declarations and intentional neutral/image scrims were retained; Astro diagnostics and browser checks cover the templates.
+- `21st review` ran offline with deterministic local rules: 0 errors, 0 warnings, 75 informational hardcoded-colour suggestions across the stylesheet. It reviewed CSS, not Astro markup. Token declarations and intentional neutral/image scrims were retained; Astro diagnostics and browser checks cover the templates.
+- 24 existing interaction checks passed, including gallery/filter/navigation behaviour, enquiry failure recovery and mocked success. No external email was sent.
 
 The homepage hero was not changed. Mail configuration and indexing retain the review-site settings documented in netlify-deployment.md.

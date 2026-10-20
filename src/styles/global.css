@@ -985,7 +985,7 @@ li + li {
   min-height: 100svh;
   min-height: 100dvh;
   padding-top: calc(var(--header-h) + 70px);
-  padding-bottom: 36px;
+  padding-bottom: 76px;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -2010,7 +2010,7 @@ li + li {
 @media (max-width: 600px) {
   .about-hero__layout {
     padding-top: calc(var(--header-h) + 80px);
-    padding-bottom: 25px;
+    padding-bottom: 72px;
     gap: 30px;
   }
   .about-hero h1 {
