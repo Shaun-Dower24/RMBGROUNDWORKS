@@ -1,0 +1,25 @@
+---
+export const prerender = true;
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+---
+
+<Base title="Page Not Found" noindex>
+  <section class="container error-page">
+    <p class="eyebrow">404 / A different direction</p>
+    <h1>
+      Let’s get back
+      <br />
+      on solid ground.
+    </h1>
+    <p>We couldn’t find that page. Explore our work or get in touch to discuss your project.</p>
+    <div class="button-row">
+      <a href="/" class="button">
+        Back to home <Icon />
+      </a>
+      <a href="/projects" class="text-link">
+        Explore our work <Icon />
+      </a>
+    </div>
+  </section>
+</Base>

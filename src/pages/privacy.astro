@@ -1,0 +1,65 @@
+---
+export const prerender = true;
+import Base from '../layouts/Base.astro';
+import { contacts } from '../data/site';
+---
+
+<Base title="Privacy & Cookies">
+  <section class="page-heading container">
+    <p class="eyebrow">Website information</p>
+    <h1>Privacy & cookies.</h1>
+    <div class="page-heading__bottom">
+      <p>
+        How information is used when you get in touch with RMB Groundworks through this website.
+      </p>
+    </div>
+  </section>
+  <article class="section container legal-content">
+    <p>
+      For questions about your information, contact RMB Groundworks at{' '}
+      <a href={contacts.emailHref}>{contacts.email}</a> or call{' '}
+      <a href={contacts.phoneHref}>{contacts.phone}</a>.
+    </p>
+    <h2>Information you provide</h2>
+    <p>
+      The enquiry form asks for your name, a contact method, site location and a description of the
+      work. You can also provide your company, the service required and proposed dates. We use this
+      information to assess and respond to your project or tender enquiry.
+    </p>
+    <h2>Sending and handling enquiries</h2>
+    <p>
+      Enquiry details are sent to the RMB team through the website’s configured mail service. Our
+      hosting and mail providers process the information needed to run these services. Information
+      may also be used to prepare a quotation and manage the ongoing project conversation.
+    </p>
+    <p>
+      Please contact us if you would like to know more about how your enquiry is held, how long it
+      is retained, or to request access, correction or deletion of your information. We will
+      consider your request alongside any applicable record-keeping obligations.
+    </p>
+    <h2>Cookies and external content</h2>
+    <p>
+      This version of the website does not use advertising cookies, analytics trackers or embedded
+      social feeds. Fonts and photographs are served with the site. Your browser may remember normal
+      website preferences or cache files used to display pages.
+    </p>
+    <p>
+      Links to other websites open services with their own privacy practices. Direct telephone and
+      email links use your device’s calling or email application.
+    </p>
+    <h2>Technical information</h2>
+    <p>
+      The website uses limited technical information to operate the enquiry form and reduce spam,
+      including temporary request-rate checks. Enquiry content is not included in analytics events.
+      Hosting services may maintain operational or security logs.
+    </p>
+    <h2>Contact</h2>
+    <p>
+      {contacts.tradingName}
+      <br />
+      {contacts.address}
+      <br />
+      <a href={contacts.emailHref}>{contacts.email}</a>
+    </p>
+  </article>
+</Base>

@@ -1,0 +1,169 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Icon from '../components/Icon.astro';
+import SessionIntro from '../components/SessionIntro.astro';
+import '../styles/global.css';
+import '../styles/motion.css';
+interface Props {
+  title: string;
+  description?: string;
+  overlay?: boolean;
+  noindex?: boolean;
+  image?: string;
+}
+const {
+  title,
+  description = 'Groundworks and civil engineering based in St Albans, serving Hertfordshire, London and the Home Counties. Explore our services and original work.',
+  overlay = false,
+  noindex = false,
+  image = '/media/hero-1920.webp',
+} = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const imageOrigin = import.meta.env.URL || Astro.site;
+const indexable = import.meta.env.SITE_INDEXABLE === 'true' && !noindex;
+---
+
+<!doctype html>
+<html lang="en-GB" data-motion-page={!noindex ? 'true' : undefined}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <script is:inline>
+      (() => {
+        const root = document.documentElement;
+        const preference = matchMedia('(prefers-reduced-motion: reduce)');
+        const interactions = ['pointerdown', 'touchstart', 'keydown', 'focusin', 'wheel', 'scroll'];
+        let timer;
+        function dismiss() {
+          root.classList.remove('intro-active');
+          clearTimeout(timer);
+          interactions.forEach((type) => window.removeEventListener(type, dismiss, true));
+        }
+        const navigation = performance.getEntriesByType('navigation')[0];
+        const visibleEntry = document.visibilityState === 'visible' && !document.prerendering;
+        const early = !performance
+          .getEntriesByType('paint')
+          .some((entry) => entry.name === 'first-contentful-paint');
+        const marketing =
+          root.dataset.motionPage &&
+          /^\/(?:$|about\/?$|services(?:\/|$)|projects(?:\/|$))/.test(location.pathname);
+        if (
+          early &&
+          visibleEntry &&
+          !preference.matches &&
+          !location.hash &&
+          navigation?.type === 'navigate' &&
+          marketing
+        ) {
+          root.classList.add('motion-entry');
+        }
+        try {
+          const seen = sessionStorage.getItem('rmb:intro:v1');
+          sessionStorage.setItem('rmb:intro:v1', 'seen');
+          if (!seen && root.classList.contains('motion-entry')) {
+            root.classList.add('intro-active');
+            interactions.forEach((type) =>
+              window.addEventListener(type, dismiss, { capture: true, passive: true }),
+            );
+            // Independent of modules, GSAP, fonts and image loading.
+            timer = setTimeout(dismiss, 1500);
+          }
+        } catch {
+          dismiss();
+        }
+        preference.addEventListener('change', (event) => {
+          if (event.matches) {
+            dismiss();
+            root.classList.remove('motion-entry');
+          }
+        });
+        document.addEventListener('visibilitychange', () => {
+          if (document.hidden) dismiss();
+        });
+        window.addEventListener('pageswap', dismiss);
+        window.addEventListener('pagehide', dismiss);
+        window.addEventListener('pageshow', (event) => {
+          if (event.persisted) {
+            dismiss();
+            root.classList.remove('motion-entry');
+          }
+        });
+      })();
+    </script>
+    <title>{title} | RMB Groundworks</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content={indexable ? 'index, follow' : 'noindex, nofollow'} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href="/media/favicon.svg" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_GB" />
+    <meta property="og:site_name" content="RMB Groundworks" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL(image, imageOrigin)} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#171717" />
+    <link
+      rel="preload"
+      href="/media/fonts/poppins-500.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/media/fonts/inter-400.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+  </head>
+  <body id="top">
+    <SessionIntro />
+    <a class="skip-link" href="#main">
+      Skip to content
+    </a>
+    <Header overlay={overlay} />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+    <dialog class="lightbox" data-lightbox aria-label="Image viewer">
+      <div class="lightbox__toolbar">
+        <p data-lightbox-count></p>
+        <button class="icon-button" data-lightbox-close aria-label="Close image">
+          <Icon name="close" />
+        </button>
+      </div>
+      <div class="lightbox__body">
+        <button class="icon-button" data-lightbox-prev aria-label="Previous image">
+          <Icon name="left" />
+        </button>
+        <figure>
+          <img data-lightbox-image alt="" />
+          <figcaption data-lightbox-caption></figcaption>
+        </figure>
+        <button class="icon-button" data-lightbox-next aria-label="Next image">
+          <Icon name="right" />
+        </button>
+      </div>
+    </dialog>
+    <script src="../scripts/site.ts"></script>
+    <script>
+      if (
+        document.documentElement.dataset.motionPage &&
+        !/^\/(?:contact|privacy)(?:\/|$)/.test(location.pathname) &&
+        !matchMedia('(prefers-reduced-motion: reduce)').matches &&
+        (performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming | undefined)
+          ?.type !== 'back_forward'
+      ) {
+        // Contact, reduced-motion and restored visits need no animation-library download.
+        import('../scripts/motion').catch(() => {
+          /* Visible HTML is the failure state. */
+        });
+      }
+    </script>
+  </body>
+</html>

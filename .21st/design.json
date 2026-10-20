@@ -1,0 +1,79 @@
+{
+  "version": 1,
+  "project": {
+    "name": "rmb-groundworks",
+    "productType": null,
+    "stack": [
+      "astro"
+    ]
+  },
+  "sources": {
+    "tokens": [
+      "src/styles/global.css"
+    ],
+    "components": [
+      "src/components/SplitHero.astro"
+    ],
+    "assets": [],
+    "instructions": [
+      "CLAUDE.md"
+    ]
+  },
+  "design": {
+    "colorMode": "light with dark sections",
+    "colors": {
+      "brand": "#EC2028",
+      "action": "#D11C23",
+      "ink": "#171717",
+      "paper": "#FFFFFF",
+      "mist": "#F4F3F0"
+    },
+    "typography": {
+      "display": "Poppins",
+      "body": "Inter"
+    },
+    "spacing": {},
+    "radius": {},
+    "shadows": {},
+    "motion": {
+      "scroll": "GSAP 3.15.0 + ScrollTrigger + SplitText; once per document; masked selected headings, photographic wipes, bounded row stagger and drawing rules; size-aware first playback at 55\u201370% viewport top, clamped to page bounds",
+      "intro": "Original RMB mark/rule; 1.2s desktop, .95s mobile; once per browser-tab session; fail-open maximum 1.5s",
+      "navigation": "Native same-origin 220ms document crossfade; ordinary-navigation fallback",
+      "accessibility": "Reduced motion is static; no pinning, scroll replacement, focus trap or blocking cover; resize settles pending effects"
+    },
+    "density": "unknown"
+  },
+  "components": {
+    "installed": [],
+    "preferredPrimitives": [],
+    "patterns": []
+  },
+  "constraints": {
+    "must": [],
+    "avoid": []
+  },
+  "decisions": [
+    "Original RMB marks, Poppins/Inter and photographs retained.",
+    "Infinity reference informs photographic composition and editorial spacing.",
+    "Natural scroll, manual hero and complete reduced-motion path.",
+    "Truthful work collections; no unsupported case-study claims.",
+    "21st CLI catalog requires sign-in; public editorial-image and split-hero references inform the supporting-page redesign. No catalog code imported or project context uploaded.",
+    "About uses a full-viewport original photograph anchored to the top, with copy positioned away from the operatives on desktop.",
+    "Services use a shared split hero; the work index pairs copy with staggered original photographs; contact uses a shorter editorial introduction.",
+    "Work detail photographs retain their complete natural aspect ratio. Hero content can grow on short screens rather than being clipped.",
+    "Infinity-derived scroll choreography; CSS owns immediate hero/session/navigation sequences so late modules cannot hide an already-visible heading. GSAP is downloaded only on eligible motion pages.",
+    "Approved six-section homepage shortlist implemented in native Astro: split content, manual image-card gallery, native media accordion, five neutral process stages, enquiry/telephone CTA and shared agency footer. Original RMB assets and truthful content retained; no React or catalog source imported.",
+    "Horizontal gallery cards and accordion panels stay static; one gallery frame shares the existing reveal owner. Native service toggles coalesce a geometry refresh without resetting reveals. Keyboard focus exposes whole cards and status announcements wait for settled scrolling."
+  ],
+  "evidence": [
+    {
+      "fact": "project.instructions",
+      "source": "CLAUDE.md"
+    },
+    {
+      "fact": "project.stack:astro",
+      "source": "package.json"
+    }
+  ],
+  "generatedAt": "2026-10-20T18:10:26.053Z"
+}

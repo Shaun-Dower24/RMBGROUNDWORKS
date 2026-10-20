@@ -1,0 +1,48 @@
+---
+import Icon from './Icon.astro';
+import { contacts } from '../data/site';
+import '../styles/endcap.css';
+interface Props {
+  title?: string;
+  prominent?: boolean;
+}
+const { title = 'Let’s get your project moving.', prominent = false } = Astro.props;
+---
+
+<section
+  class:list={['contact-band', { 'contact-band--prominent': prominent }]}
+  aria-labelledby="contact-band-title"
+>
+  {prominent ? (
+    <div class="container endcap-enquiry" data-reveal>
+      <p class="eyebrow">Good work starts with a conversation</p>
+      <h2 id="contact-band-title">{title}</h2>
+      <p class="endcap-enquiry__copy">
+        Share your plans, your site and what you need from the ground up. We’ll help you find the
+        next step.
+      </p>
+      <div class="endcap-enquiry__actions">
+        <a class="button button--white" href="/contact/">
+          Discuss your project <Icon />
+        </a>
+        <a class="endcap-enquiry__phone" href={contacts.phoneHref}>
+          <Icon name="phone" />
+          <span>{contacts.phone}</span>
+        </a>
+      </div>
+      <p class="endcap-enquiry__coverage">
+        Based in St Albans. Working across {contacts.coverage}.
+      </p>
+    </div>
+  ) : (
+    <div class="container contact-band__inner">
+      <div>
+        <p class="eyebrow">Your next project starts with a conversation</p>
+        <h2 id="contact-band-title">{title}</h2>
+      </div>
+      <a class="circle-link" href="/contact/" aria-label="Discuss your project">
+        <Icon />
+      </a>
+    </div>
+  )}
+</section>

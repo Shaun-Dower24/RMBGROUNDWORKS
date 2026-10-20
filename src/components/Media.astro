@@ -1,0 +1,30 @@
+---
+interface Props {
+  src: string;
+  alt: string;
+  class?: string;
+  eager?: boolean;
+  sizes?: string;
+}
+const {
+  src,
+  alt,
+  class: className = '',
+  eager = false,
+  sizes = '(max-width: 700px) 100vw, 60vw',
+} = Astro.props;
+const hero = src === 'hero';
+---
+
+<img
+  class={className}
+  src={`/media/${src}-1280.webp`}
+  srcset={`/media/${src}-640.webp 640w, /media/${src}-1280.webp 1280w${hero ? ', /media/hero-1920.webp 1920w' : ''}`}
+  sizes={sizes}
+  alt={alt}
+  width={hero ? 1920 : 1280}
+  height={hero ? 712 : 918}
+  loading={eager ? 'eager' : 'lazy'}
+  fetchpriority={eager ? 'high' : 'auto'}
+  decoding="async"
+/>

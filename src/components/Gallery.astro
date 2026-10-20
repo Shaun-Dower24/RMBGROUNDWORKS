@@ -1,0 +1,61 @@
+---
+import Media from './Media.astro';
+import Icon from './Icon.astro';
+interface Props {
+  ids: string[];
+  label?: string;
+}
+const { ids, label = 'A closer look at the work' } = Astro.props;
+const captions: Record<string, string> = {
+  '01': 'Block and beam floor construction',
+  '02': 'Foundation reinforcement with starter bars',
+  '03': 'Reinforcement and basement formwork',
+  '04': 'Kerbed access road and site preparation',
+  '05': 'Prepared block and beam floor',
+  '06': 'Steel frame on pad foundations',
+  '07': 'Completed car park and marked bays',
+  '08': 'Basement reinforcement work',
+  '09': 'Oversite floor construction',
+  '10': 'Tarmac laying along a new kerb line',
+  '11': 'Timber foundation formwork',
+  '12': 'Foundation blockwork and drainage',
+  '13': 'Demolition work with an excavator',
+  '14': 'Drainage pipework across a site',
+  '15': 'Foundation excavation',
+  '16': 'Mini excavator and foundation formwork',
+  '17': 'Drainage risers and concrete path',
+  '18': 'Large-format paving and channel drain',
+  '19': 'Block and beam floor edge detail',
+  '20': 'Foundation blockwork',
+  '21': 'Basement formwork being lifted into place',
+  '22': 'Tarmac surfacing in progress',
+  '23': 'Driveway preparation and drainage',
+  '24': 'Deep foundation excavation',
+  '25': 'Block and beam floor on a garden plot',
+};
+---
+
+<section class="section gallery-section">
+  <div class="container">
+    <div class="section-heading">
+      <p class="eyebrow">On site with RMB</p>
+      <h2 data-motion="text">{label}</h2>
+    </div>
+    <div class="detail-gallery">
+      {ids.map((id, i) => (
+        <button
+          class:list={['gallery-tile', { 'gallery-tile--wide': i === 0 }]}
+          data-reveal
+          data-lightbox-src={`/media/gallery/${id}-1280.webp`}
+          data-caption={captions[id]}
+          aria-label={`Enlarge: ${captions[id]}`}
+        >
+          <Media src={`gallery/${id}`} alt={captions[id]} />
+          <span>
+            <Icon name="plus" />
+          </span>
+        </button>
+      ))}
+    </div>
+  </div>
+</section>
